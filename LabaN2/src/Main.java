@@ -3,14 +3,15 @@
  * */
 
 import ru.ifmo.se.pokemon.*;
+import pokemons.*;
 
 public class Main {
     public static void main(String[] args) {
         Battle b = new Battle();
-        //Pokemon p1 = new Pokemon("Чужой", 1);
+        Eevee p1 = new Eevee("Чужой", 1);
         Pokemon p2 = new Pokemon("Хищник", 1);
-        Mesprit m = new Mesprit();
-        //b.addAlly(p1);
+        Mesprit m = new Mesprit("Месси", 45);
+        b.addAlly(p1);
         b.addFoe(p2);
         b.addAlly(m);
         b.go();
