@@ -1,0 +1,14 @@
+help
+add
+faf4
+5.1 3.14
+18.0 22.05 50 loc1
+1.0 2.01 5 loc2
+add
+faf5
+5.1 3.14
+18.0 22.05 50 loc1
+1.0 2.0 5 loc2
+save
+info
+exit

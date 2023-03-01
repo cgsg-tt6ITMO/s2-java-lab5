@@ -1,0 +1,75 @@
+package commands;
+/**
+ * @author Troitskaya Tamara (TT6)
+ */
+
+import task.Coordinates;
+import task.Location;
+import task.Route;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ * Try to input Route objects from file.
+ */
+public class Add {
+
+    /* Вопрос: как мы будем изменять саму коллекцию? где мы вообще будем её хранить?
+     * Метод ниже просто считывает элементы из консоли. Между прочим, тот же код пойдёт и для считывания из файла.
+     * Метод, который я назову add по идее лучше бы изменял уже саму коллекцию.
+     */
+
+    private static Route inputFromConsole() {
+        Scanner sc = new Scanner(System.in).useLocale(Locale.US);;
+        System.out.println("Введите название маршрута:");
+        String Name = sc.nextLine();
+        System.out.println("Введите координаты (double, float):");
+        Coordinates coords = new Coordinates(sc.nextDouble(), sc.nextFloat());
+
+        System.out.println("Введите значения координат для Location from и название локации:");
+        Location f = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
+
+        System.out.println("Введите значения координат для Location to и название локации:");
+        Location t = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
+        sc.close();
+        return new Route(Name, coords, f, t);
+    }
+
+    private static Route inputFromFile(String filename) {
+        File file = new File(filename);
+        Scanner sc = null;
+        try {
+            sc = new Scanner(file).useLocale(Locale.US);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Введите название маршрута:");
+        String Name = sc.nextLine();
+        System.out.println("Введите координаты (double, float):");
+        Coordinates coords = new Coordinates(sc.nextDouble(), sc.nextFloat());
+
+        System.out.println("Введите значения координат для Location from и название локации:");
+        Location f = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
+
+        System.out.println("Введите значения координат для Location to и название локации:");
+        Location t = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
+        sc.close();
+        return new Route(Name, coords, f, t);
+    }
+
+    public static void add(Stack<Route> stack) {
+        Route r = inputFromConsole();
+        int id = stack.lastElement().getId();
+        //Route r = inputFromFile("inp.txt");
+        stack.add(r);
+        System.out.println(id + " "+ stack.lastElement().getId());
+        if ((stack.lastElement().getId() - id) != 1) {
+            System.err.println("The element is added to the collection twice");
+        }
+    }
+}
