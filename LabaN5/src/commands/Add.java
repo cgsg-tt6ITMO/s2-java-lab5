@@ -62,7 +62,6 @@ public class Add {
                 // значения координат для Location to и название локации:
                 Location t = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
                 stack.add(new Route(Name, coords, f, t));
-
                 q--;
             }
             sc.close();
@@ -74,16 +73,33 @@ public class Add {
     public static void addOneElementFromFile(Stack<Route> stack, String filename) {
         File file = new File(filename);
         try {
+            String Name = null;
+            Coordinates coords = null;
+            Location f = null, t = null;
             Scanner sc = new Scanner(file).useLocale(Locale.US);
-
             // название маршрута
-            String Name = sc.nextLine();
+            if (sc.hasNext()) {
+                Name = sc.nextLine();
+            }
             // координаты (double, float)
-            Coordinates coords = new Coordinates(Double.parseDouble(sc.next()), Float.parseFloat(sc.next()));
+            Double x = null;
+            float y = Float.parseFloat("0");
+            if (sc.hasNext()) {
+                x = Double.parseDouble(sc.next());
+            }
+            if (sc.hasNext()) {
+                y = Float.parseFloat(sc.next());
+            }
+            coords = new Coordinates(x, y);
+
             // значения координат для Location from и название локации
-            Location f = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
-            // значения координат для Location to и название локации:
-            Location t = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+            if (sc.hasNext()) {
+                f = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+            }
+            if (sc.hasNext()) {
+                // значения координат для Location to и название локации:
+                t = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+            }
             stack.add(new Route(Name, coords, f, t));
 
             sc.close();
@@ -97,7 +113,6 @@ public class Add {
         int id = stack.lastElement().getId();
         //Route r = inputFromFile("inp.txt");
         stack.add(r);
-        System.out.println(id + " "+ stack.lastElement().getId());
         if ((stack.lastElement().getId() - id) != 1) {
             System.err.println("The element is added to the collection twice");
         }

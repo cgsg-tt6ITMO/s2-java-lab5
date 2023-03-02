@@ -3,7 +3,6 @@ import task.*;
 import commands.*;
 import task.Location;
 
-import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -11,6 +10,9 @@ import java.util.Stack;
  * @TODO new gradle project...
  * Переместить все функции взаимодействия с коллекцией в StackStorage
  * либо как-то хранить instance stack в каждой функции...
+ *
+ * add из консоли рушит while(scanner.hasNext()), так что хер с ним, будем только из файла вводить.
+ * когда добавляем элемент из файла, приятно бы вывести "элемент добавлен"
  */
 
 /**
