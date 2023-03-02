@@ -26,7 +26,12 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Name:" + name;//+ "\nDistance:" + distance;
+        return "Name:" + name;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)distance;
     }
 
     public Route(String Name, Coordinates coords, Location f, Location t) {

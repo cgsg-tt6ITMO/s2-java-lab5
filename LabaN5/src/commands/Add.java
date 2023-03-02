@@ -39,27 +39,57 @@ public class Add {
         return new Route(Name, coords, f, t);
     }
 
-    private static Route inputFromFile(String filename) {
+    /**
+     * Потом эти все функции надо перекинуть в файл
+     * @param stack - коллекция, в которую добавляем. При перемещении это пропадёт.
+     * @param filename - name of input file. For example, "defaultcollection.txt"
+     */
+    public static void defaultInputFromFile(Stack<Route> stack, String filename) {
         File file = new File(filename);
-        Scanner sc = null;
         try {
-            sc = new Scanner(file).useLocale(Locale.US);
+            Scanner sc = new Scanner(file).useLocale(Locale.US);
+            // сначала в файле должно быть написано, сколько в нём элементов
+            int q = sc.nextInt();
+            // это чтобы не считывал энтер между числом исходных Route и именем
+            sc.nextLine();
+            while (q > 0) {
+                // название маршрута
+                String Name = sc.nextLine();
+                // координаты (double, float)
+                Coordinates coords = new Coordinates(Double.parseDouble(sc.next()), Float.parseFloat(sc.next()));
+                // значения координат для Location from и название локации
+                Location f = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+                // значения координат для Location to и название локации:
+                Location t = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+                stack.add(new Route(Name, coords, f, t));
+
+                q--;
+            }
+            sc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        System.out.println("Введите название маршрута:");
-        String Name = sc.nextLine();
-        System.out.println("Введите координаты (double, float):");
-        Coordinates coords = new Coordinates(sc.nextDouble(), sc.nextFloat());
+    public static void addOneElementFromFile(Stack<Route> stack, String filename) {
+        File file = new File(filename);
+        try {
+            Scanner sc = new Scanner(file).useLocale(Locale.US);
 
-        System.out.println("Введите значения координат для Location from и название локации:");
-        Location f = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
+            // название маршрута
+            String Name = sc.nextLine();
+            // координаты (double, float)
+            Coordinates coords = new Coordinates(Double.parseDouble(sc.next()), Float.parseFloat(sc.next()));
+            // значения координат для Location from и название локации
+            Location f = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+            // значения координат для Location to и название локации:
+            Location t = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
+            stack.add(new Route(Name, coords, f, t));
 
-        System.out.println("Введите значения координат для Location to и название локации:");
-        Location t = new Location(sc.nextFloat(), sc.nextFloat(), sc.nextLong(), sc.nextLine());
-        sc.close();
-        return new Route(Name, coords, f, t);
+            sc.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void add(Stack<Route> stack) {

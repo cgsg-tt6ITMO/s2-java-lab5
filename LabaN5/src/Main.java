@@ -1,3 +1,4 @@
+// unnecessary in case of using class Client
 import task.*;
 import commands.*;
 import task.Location;
@@ -8,17 +9,8 @@ import java.util.Stack;
 /**
  * @author Troitskaya Tamara (TT6)
  * @TODO new gradle project...
- */
-
-
-/* TODO: 05.02.2023
- * Commands - help. Every command will have it's own file.
- * Javadoc comments - ? - главный коммент, где пишется @author, идёт до или после import, package?
- * 16.02.2023.
- * я написала кусок функции add но там я дальше не понимаю как реализовать хранение коллекции
- * надо теперь написать вывод коллекции на экран. ибо я могу ручками добавлять элементы в коллекцию на данном этапе.
- * надо понять, какие параметры добавить в hashcode для Route.
- * и потом надо будет ещё уже что-то на гитхаб залить.
+ * Переместить все функции взаимодействия с коллекцией в StackStorage
+ * либо как-то хранить instance stack в каждой функции...
  */
 
 /**
@@ -33,12 +25,14 @@ public class Main {
      * @param args - arguments from cmd.
      */
     public static void main(String [] args) {
-        //Client client = new Client();
-        //client.run();
-        // run почему-то вылетает, хотя я полагала он будет работать пока пользователь не введёт exit
-
+        Client client = new Client();
+        client.run();
+        // run почему-то вылетает при консольном вводе, хотя я полагала он будет работать пока пользователь не введёт exit
+        /*
         StackStorage storage = new StackStorage();
         Stack<Route> stack = storage.stack();
+        Add.addFromFile(stack, "defaultcollection.txt");
+        Show.show(stack);
 
         Route r1 = new Route("Route number one", new Coordinates(1.0,(float)1.07), new Location(), new Location());//new Location((float)18.0, 12.12345, 50, "Loc1"), new Location());
         Route r2 = new Route("Route number two", new Coordinates(1.0,(float)1.0), new Location((float)1.0, (float)2.0, 5, "Loc2"), new Location());
@@ -65,12 +59,13 @@ faf5
 1.0 2.0 5 loc2
 save
 info
-exit*/
+exit/
         Info.info(storage);
         Save.save("out.txt", stack);
         Show.show(stack);
         //Clear.clear(stack);
         stack.clear();
         Show.show(stack);
+        */
     }
 }

@@ -5,12 +5,12 @@ import task.Route;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Stack;
 
 public class Save {
 
     public static void save(String outp, Stack<Route> r) {
+        System.out.println("SAVE COLLECTION:\nСохранение производится в файл " + outp + "\n");
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter(outp));
 
@@ -21,7 +21,7 @@ public class Save {
             output.close();
         }
         catch (IOException e) {
-            System.err.println("Exception while output");
+            System.err.println("Exception while output: " + e.getMessage());
         }
     }
 }

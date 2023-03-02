@@ -23,6 +23,7 @@ public class Client {
      * This method is for inputting client's commands and handling them.
      */
     public void run() {
+        // сначала должен быть ввод коллекции из файла
         try {
             File f = new File("inp.txt");
             Scanner scanner = new Scanner(f).useLocale(Locale.US);
@@ -30,24 +31,35 @@ public class Client {
             StackStorage storage = new StackStorage();
             Stack<Route> stack = storage.stack();
 
+            Add.defaultInputFromFile(stack, "defaultcollection.txt");
+            Show.show(stack);
+
             while (scanner.hasNext()) {
-                String s = scanner.nextLine();
-                switch (s) {
+                String command = scanner.nextLine();
+                switch (command) {
                     case "help" -> Help.help();
                     case "info" -> Info.info(storage);
                     // но есть ещё возможность Clear.clear(stack);
                     case "clear" -> stack.clear();
                     case "save" -> {
-                        System.out.println("Сохранение производится в файл out.txt");
                         String outputfile = "out.txt";
                         Save.save(outputfile, stack);
                     }
                     case "add" -> {
-                        // add from file
-                        Add.add(stack);
+                        // System.out.println("From file? (y/n)");
+                        String answer = scanner.nextLine();
+                        if (answer.equals("y")) {
+                            // System.out.println("Input the path ");
+                            Add.addOneElementFromFile(stack, scanner.nextLine());
+                        } else if (answer.equals("n")){
+                            Add.add(stack);
+                        } else {
+                            System.out.println(answer + " is incorrect answer");
+                        }
                     }
                     case "exit" -> exit(0);
-                    default -> System.out.println(s + " The command doesn't exist yet.");
+                    case "show" -> Show.show(stack);
+                    default -> System.out.println(command + ": this command doesn't exist yet.");
                 }
             }
             scanner.close();

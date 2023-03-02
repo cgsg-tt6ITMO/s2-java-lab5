@@ -14,9 +14,8 @@ public class Show {
     public static void show(Stack<Route> r) {
         System.out.println("SHOW COLLECTION:");
         for (var el : r) {
-            System.out.println("ID: " + el.getId() +"\nName:" + el.getName()
-                    + "\nDistance: " + el.getDistance());
+            System.out.println("ID: \t\t" + el.getId() + "\nName: \t\t" + el.getName()
+                    + "\nDistance: \t" + el.getDistance() + "\n");
         }
-        System.out.print("\n");
     }
 }
