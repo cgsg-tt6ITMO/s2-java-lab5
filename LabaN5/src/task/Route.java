@@ -7,6 +7,7 @@ package task;
 import commands.StackStorage;
 
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 import static java.lang.Math.sqrt;
 
@@ -14,13 +15,13 @@ import static java.lang.Math.sqrt;
  * Elements of the collection.
  */
 public class Route {
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private Long id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Location from; //Поле не может быть null
     private Location to; //Поле может быть null
-    private long distance; //Значение поля должно быть больше 1
+    private Double distance; //Значение поля должно быть больше 1
 
     @Override
     public String toString() {
@@ -29,7 +30,7 @@ public class Route {
 
     @Override
     public int hashCode() {
-        return (int)distance;
+        return Integer.parseInt(String.valueOf(distance));
     }
 
     /**
@@ -44,7 +45,7 @@ public class Route {
         setCoordinates(new Coordinates(5.17, 3.41f));
         setFrom(new Location());
         setTo(new Location(1.34f, 5.61f, 45, "loc-to"));
-        long dist = (long)sqrt((getFrom().getX()-getTo().getX()) * (getFrom().getX()-getTo().getX())
+        Double dist = sqrt((getFrom().getX()-getTo().getX()) * (getFrom().getX()-getTo().getX())
                 + (getFrom().getY()-getTo().getY()) * (getFrom().getY()-getTo().getY())
                 + (getFrom().getZ()-getTo().getZ()) * (getFrom().getZ()-getTo().getZ()));
         setDistance(dist);
@@ -59,7 +60,7 @@ public class Route {
         setCoordinates(coords);
         setFrom(f);
         setTo(t);
-        long dist = (long)sqrt((f.getX()-t.getX()) * (f.getX()-t.getX()) + (f.getY()-t.getY()) * (f.getY()-t.getY())
+        Double dist = sqrt((f.getX()-t.getX()) * (f.getX()-t.getX()) + (f.getY()-t.getY()) * (f.getY()-t.getY())
                 + (f.getZ()-t.getZ()) * (f.getZ()-t.getZ()));
         setDistance(dist);
     }
@@ -67,28 +68,32 @@ public class Route {
     /**
      * Если захочется вручную задать расстояние.
      */
-    public Route(String Name, Coordinates coords, Location f, Location t, long distance) {
+    public Route(String Name, Coordinates coords, Location f, Location t, Double distance) {
         this(Name, coords, f, t);
         setDistance(distance);
     }
 
     /**
      * Автоматически генерирующийся id.
+     * Он и так будет не null и > 0 и уникальный, можно не проверять.
+     * Однако, потом добавится функция изменения полей жлемента. Получается, для той функции поле id будет неизменяемым.
      */
     public void setId() {
-        StackStorage.setLastId(StackStorage.getLastId()+1);;
+        StackStorage.setLastId(StackStorage.getLastId() + 1);;
         this.id = StackStorage.getLastId();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     public void setName(String name) {
-        if (name != null && name != "") {
+        if (name != null && !name.equals("")) {
             this.name = name;
         } else {
             System.err.println("Class Route: Field name is null or ''");
+            System.out.println("Input correct data:\nName (String)");
+            setName(new Scanner(System.in).nextLine());
         }
     }
 
@@ -101,6 +106,10 @@ public class Route {
             this.coordinates = coordinates;
         } else {
             System.err.println("Class Route: Field coordinates is null");
+            System.out.println("Input correct data:\nCoordinates(Double, Float)");
+            Scanner sc = new Scanner(System.in);
+            Coordinates coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+            setCoordinates(coords);
         }
     }
 
@@ -126,6 +135,10 @@ public class Route {
         }
         else {
             System.err.println("Class Route: Location 'to' is null");
+            System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
+            Scanner sc = new Scanner(System.in);
+            Location t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+            setTo(t);
         }
     }
 
@@ -143,6 +156,10 @@ public class Route {
         }
         else {
             System.err.println("Class Route: Location 'from' is null");
+            System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
+            Scanner sc = new Scanner(System.in);
+            Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+            setFrom(f);
         }
     }
 
@@ -154,17 +171,28 @@ public class Route {
      * Sets the length of the route.
      * @param distance - the length (long)
      */
-    public void setDistance(long distance) {
+    public void setDistance(Double distance) {
         if (distance > 1) {
             this.distance = distance;
-        }
-        else {
-            // ? а что делать если такое происходит? нужно предложить заново ввести данные?
-            System.err.println("Class Route: distance is less than 1 (or equals 1)");
+        } else {
+            try {
+                System.err.println("Class Route: distance is less than 1 (or equals 1)");
+                System.out.println("Input correct data:");
+                setDistance(Double.parseDouble(new Scanner(System.in).next()));
+            }
+            /*
+             * @TODO эта херня только 1 раз срабатывает, а дальше exception.
+             *   mb throws?
+             */
+            catch (NumberFormatException e) {
+                System.err.println("setDistance: incorrect input");
+                System.out.println("Input correct data:");
+                setDistance(Double.parseDouble(new Scanner(System.in).next()));
+            }
         }
     }
 
-    public long getDistance() {
+    public Double getDistance() {
         return distance;
     }
 }

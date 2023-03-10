@@ -1,6 +1,5 @@
 /**
  * @author Troitskaya Tamara (TT6)
- * 10.03.2023
  */
 
 import commands.*;
@@ -28,6 +27,7 @@ public class Client {
 
         storage.defaultInputFromFile("defaultcollection.txt");
         storage.show();
+        storage.help();
 
         while (scanner.hasNext()) {
             String command = scanner.nextLine();
@@ -47,6 +47,10 @@ public class Client {
                 }
                 case "exit" -> exit(0);
                 case "show" -> storage.show();
+                case "delete", "remove", "delete_by_id" -> {
+                    System.out.println("Input the index");
+                    storage.deleteById(new Scanner(System.in).nextLong());
+                }
                 case "execute_script file_name" -> {
                     System.out.println("Soon...");
                 }

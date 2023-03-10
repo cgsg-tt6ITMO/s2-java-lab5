@@ -8,6 +8,7 @@
 package task;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Location {
     private float x;
@@ -45,11 +46,16 @@ public class Location {
         return x;
     }
 
+    /**
+     * Нужно handle InputMismatchException или NumberFormatException.
+     */
     public void setY(Float y) {
         if (y != null) {
             this.y = y;
         } else {
             System.err.println("Class task\\Location: Y is null");
+            System.out.println("Input correct data:\nsetY (Float)");
+            setY(Float.parseFloat(new Scanner(System.in).next()));
         }
     }
 
@@ -65,11 +71,16 @@ public class Location {
         return z;
     }
 
+    /**
+     * In case of incorrect input offers you to re-input.
+     */
     public void setName(String name) {
         if (!Objects.equals(name, "")) {
             this.name = name;
         } else {
             System.err.println("Class task\\Location: name is ''");
+            System.out.println("Input correct data:\nsetName (String)");
+            setName(new Scanner(System.in).nextLine());
         }
     }
 

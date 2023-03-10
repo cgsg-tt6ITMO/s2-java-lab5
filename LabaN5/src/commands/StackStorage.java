@@ -11,6 +11,7 @@ import task.Route;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -19,13 +20,13 @@ public class StackStorage {
     //тип, дата инициализации, количество элементов и т.д
     private final String type;
     private final java.time.LocalDateTime creationDate;
-    private static int lastId = 0;
+    private static Long lastId = 0L;
 
-    public static int getLastId() {
+    public static Long getLastId() {
         return lastId;
     }
 
-    public static void setLastId(int Id) {
+    public static void setLastId(Long Id) {
         lastId = Id;
     }
 
@@ -82,6 +83,7 @@ public class StackStorage {
                  - clear: deletes all the elements in collection;
                  - show: writes all the elements to console;
                  - execute_script: inputs elements from file;
+                 - delete_by_id: deletes the element with inputted id;
                  - exit;
                  - other.
                 """);
@@ -109,9 +111,8 @@ public class StackStorage {
         Coordinates coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
         System.out.println("Location(Float, Float, Long, String name)");
         Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
-        System.out.println("Yet nothing");
-        Location t = new Location();
-
+        System.out.println("Location(Float, Float, Long, String name)");
+        Location t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
         Route route = new Route(Name, coords, f, t);
         stack.add(route);
         System.out.println("NEW ELEMENT ADDED SUCCESSFULLY\n");
@@ -144,6 +145,28 @@ public class StackStorage {
             sc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deletes element with provided id.
+     * @param id - id of element to be deleted
+     */
+    public void deleteById(Long id) {
+        // начальный размер массива
+        int begin = stack().size();
+        if (begin != 0) {
+            stack().removeIf(el -> Objects.equals(el.getId(), id));
+            if (Objects.equals(stack().size(), begin)) {
+                System.err.println("There is no element with this id: " + id);
+                System.out.println("Input id correctly:");
+                deleteById(new Scanner(System.in).nextLong());
+            } else {
+                System.out.println("SUCCESS");
+                show();
+            }
+        } else {
+            System.err.println("Collection doesn't have any elements");
         }
     }
 

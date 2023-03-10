@@ -1,15 +1,20 @@
 /**
  * @author Troitskaya Tamara (TT6)
+ */
+
+/*
  * 10.03.2023:
  * @TODO
- * delete by id
- * execute script
- * add element from file
- * save as json
- * шаблон проектирования Builder - так как вообще-то лучше не юзать конструкторы.
- * при возникновении exception нужно попросить пользователя ввести другие данные
- * переписать javadoc на один язык и в одном стиле
- * new gradle project...
+ *   execute script
+ *   add element from file
+ *   save as json
+ *   шаблон проектирования Builder - так как вообще-то лучше не юзать конструкторы.
+ *   Нужно handle InputMismatchException или NumberFormatException - вывести ошибку и повторить ввод.
+        * пока что обрабатывается только если число не в том диапазоне, а если строку вместо числа ввести - нет
+ *   переписать javadoc на один язык и в одном стиле
+ *   new gradle project...
+ *   packages изменить, поудалять лишние файлы из корня проекта
+ *   писать где-нить что по одному элементу на строку вводить
  */
 
 /**
