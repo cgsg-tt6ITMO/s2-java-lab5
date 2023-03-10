@@ -1,8 +1,5 @@
 /**
  * @author Troitskaya Tamara (TT6)
- * 2023/02/08:
- * now != null is checked not in constructor, but in setters
- * need javadoc
  */
 
 /**

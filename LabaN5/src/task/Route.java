@@ -1,6 +1,5 @@
 /**
  * @author Troitskaya Tamara (TT6)
- * The file is +- ready. Need a bit more javadoc comments.
  */
 
 package task;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 import static java.lang.Math.sqrt;
 
 /**
- * Realization +- completed. (2023/02/08)
+ * Elements of the collection.
  */
 public class Route {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -22,7 +21,6 @@ public class Route {
     private Location from; //Поле не может быть null
     private Location to; //Поле может быть null
     private long distance; //Значение поля должно быть больше 1
-    //private int lastId = 0;
 
     @Override
     public String toString() {
@@ -34,13 +32,31 @@ public class Route {
         return (int)distance;
     }
 
-    public Route(String Name, Coordinates coords, Location f, Location t) {
+    /**
+     * Дефолтный конструктор для дебаггинга.
+     */
+    public Route() {
+        // автогенерируется
         setId();
+        setCreationDate(LocalDateTime.now());
+        // при не дефолтном конструкторе - меняется
+        setName("route#" + id);
+        setCoordinates(new Coordinates(5.17, 3.41f));
+        setFrom(new Location());
+        setTo(new Location(1.34f, 5.61f, 45, "loc-to"));
+        long dist = (long)sqrt((getFrom().getX()-getTo().getX()) * (getFrom().getX()-getTo().getX())
+                + (getFrom().getY()-getTo().getY()) * (getFrom().getY()-getTo().getY())
+                + (getFrom().getZ()-getTo().getZ()) * (getFrom().getZ()-getTo().getZ()));
+        setDistance(dist);
+    }
+
+    /**
+     * Наиболее часто используется.
+     */
+    public Route(String Name, Coordinates coords, Location f, Location t) {
+        this();
         setName(Name);
         setCoordinates(coords);
-        // автоматически генерируем текущее время
-        setCreationDate(LocalDateTime.now());
-        //System.out.println(getCreationDate());
         setFrom(f);
         setTo(t);
         long dist = (long)sqrt((f.getX()-t.getX()) * (f.getX()-t.getX()) + (f.getY()-t.getY()) * (f.getY()-t.getY())
@@ -48,15 +64,17 @@ public class Route {
         setDistance(dist);
     }
 
+    /**
+     * Если захочется вручную задать расстояние.
+     */
     public Route(String Name, Coordinates coords, Location f, Location t, long distance) {
         this(Name, coords, f, t);
         setDistance(distance);
     }
 
-    // чтобы это поле было уникальным, можно создать set со всеми Id и проверять их наличие в этом множестве каждый раз
-    // либо можно создать SortedArray и Id при при неуказанном параметре задавать как предыдущее id +1
-    // нужно ли присваивать какое-то другое id в случае ошибки?
-    // !!!! генерируется автоматически
+    /**
+     * Автоматически генерирующийся id.
+     */
     public void setId() {
         StackStorage.setLastId(StackStorage.getLastId()+1);;
         this.id = StackStorage.getLastId();
