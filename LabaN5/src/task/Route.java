@@ -7,6 +7,7 @@ package task;
 import management.StackStorage;
 
 import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static java.lang.Math.sqrt;
@@ -76,7 +77,7 @@ public class Route {
     /**
      * Автоматически генерирующийся id.
      * Он и так будет не null и > 0 и уникальный, можно не проверять.
-     * Однако, потом добавится функция изменения полей жлемента. Получается, для той функции поле id будет неизменяемым.
+     * Однако, потом добавится функция изменения полей элемента. Получается, для той функции поле id будет неизменяемым.
      */
     public void setId() {
         StackStorage.setLastId(StackStorage.getLastId() + 1);;
@@ -87,6 +88,9 @@ public class Route {
         return id;
     }
 
+    /**
+     * Sets name and suggests you to correct your output.
+     */
     public void setName(String name) {
         if (name != null && !name.equals("")) {
             this.name = name;
@@ -151,15 +155,27 @@ public class Route {
      * @param from != null, Location - the beginning of our route.
      */
     public void setFrom(Location from) {
-        if (from != null) {
-            this.from = from;
+        try {
+            if (from != null) {
+                this.from = from;
+            } else {
+                throw new InputMismatchException();
+            }
         }
-        else {
-            System.err.println("Class Route: Location 'from' is null");
-            System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
-            Scanner sc = new Scanner(System.in);
-            Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
-            setFrom(f);
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Class Route: Location 'from' is null");
+                    System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
+                    Scanner sc = new Scanner(System.in);
+                    Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+                    setFrom(f);
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception) {
+                    loop = true;
+                }
+            } while (loop);
         }
     }
 
@@ -172,23 +188,26 @@ public class Route {
      * @param distance - the length (long)
      */
     public void setDistance(Double distance) {
-        if (distance > 1) {
-            this.distance = distance;
-        } else {
-            try {
+        try {
+            if (distance > 1) {
+                this.distance = distance;
+            } else {
                 System.err.println("Class Route: distance is less than 1 (or equals 1)");
-                System.out.println("Input correct data:");
-                setDistance(Double.parseDouble(new Scanner(System.in).next()));
+                throw new InputMismatchException();
             }
-            /*
-             * @TODO эта херня только 1 раз срабатывает, а дальше exception.
-             *   mb throws?
-             */
-            catch (NumberFormatException e) {
-                System.err.println("setDistance: incorrect input");
-                System.out.println("Input correct data:");
-                setDistance(Double.parseDouble(new Scanner(System.in).next()));
-            }
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("setDistance: incorrect input");
+                    System.out.println("Input correct data:");
+                    setDistance(Double.parseDouble(new Scanner(System.in).next()));
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception) {
+                    loop = true;
+                }
+            } while (loop);
         }
     }
 

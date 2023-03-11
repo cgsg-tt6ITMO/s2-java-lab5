@@ -1,8 +1,8 @@
-package management; /**
+/**
  * @author Troitskaya Tamara (TT6)
  */
 
-import management.*;
+package management;
 
 import java.util.Locale;
 import java.util.Scanner;

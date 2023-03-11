@@ -107,15 +107,69 @@ public class StackStorage {
         System.out.println("Input route data");
         System.out.println("Name (String)");
         String Name = sc.nextLine();
-        System.out.println("Coordinates(Double, Float)");
-        Coordinates coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
-        System.out.println("Location(Float, Float, Long, String name)");
-        Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
-        System.out.println("Location(Float, Float, Long, String name)");
-        Location t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+
+        Coordinates coords = null;
+        Location f = null;
+        Location t = null;
+
+        try {
+            System.out.println("Coordinates (Double, Float)");
+            coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Coordinates (Double, Float)");
+                    coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location from (Float, Float, Long, String name)");
+            f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location from (Float, Float, Long, String name)");
+                    f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location to (Float, Float, Long, String name)");
+            t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location to (Float, Float, Long, String name)");
+                    t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
         Route route = new Route(Name, coords, f, t);
         stack.add(route);
         System.out.println("NEW ELEMENT ADDED SUCCESSFULLY\n");
+
     }
 
     /**

@@ -4,6 +4,9 @@
 
 package task;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Coordinates {
     private Double x; //Поле не может быть null
     private float y;
@@ -18,12 +21,25 @@ public class Coordinates {
         y = Y;
     }
 
+    /**
+     * Скорее всего, проверки здесь избыточны, потому что проверка на null происходит в add.
+     */
     public void setX(Double x) {
         if (x != null) {
             this.x = x;
         }
         else {
-            System.err.println("You are trying to make Coordinate x equal null");
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Coordinate: You are trying to make X equal null");
+                    System.out.println("Input X again:");
+                    setX(new Scanner(System.in).nextDouble());
+                    loop = true;
+                } catch (NumberFormatException | InputMismatchException e) {
+                    loop = false;
+                }
+            } while (loop);
         }
     }
 
