@@ -83,7 +83,8 @@ public class StackStorage {
                  - show: writes all the elements to console;
                  - execute_script: inputs elements from file;
                  - delete_by_id: deletes the element with inputted id;
-                 - print_field_descending_distance: prints distances in descending order.;
+                 - print_field_descending_distance: prints distances in descending order;
+                 - filter_greater_than_distance: prints elements with distance greater than the inputted one;
                  - exit;
                  - other.
                 """);
@@ -184,6 +185,9 @@ public class StackStorage {
         }
     }
 
+    /**
+     * Loop of client commands.
+     */
     public void loop(Scanner scanner) {
         while (scanner.hasNext()) {
             String command = scanner.nextLine();
@@ -212,6 +216,9 @@ public class StackStorage {
                 case "print_field_descending_distance" -> {
                     print_field_descending_distance();
                 }
+                case "filter_greater_than_distance" -> {
+                    filter_greater_than_distance(scanner);
+                }
                 default -> System.out.println(command + ": this command doesn't exist yet.");
             }
         }
@@ -233,6 +240,20 @@ public class StackStorage {
             System.out.println(distances.get(i));
         }
         System.out.println('\n');
+    }
+
+    /**
+     * Shows elements with distance greater than the inputted one.
+     */
+    public void filter_greater_than_distance(Scanner sc) {
+        System.out.println("ROUTES WITH DIST GREATER THAN INPUTTED:\nInput distance (Double), and I will output all routes with greater one:");
+        Double distance = Double.parseDouble(sc.next());
+        for (var el : stack) {
+            if (el.getDistance() > distance) {
+                System.out.println("ID: \t\t" + el.getId() + "\nName: \t\t" + el.getName()
+                        + "\nDistance: \t" + el.getDistance() + "\n");
+            }
+        }
     }
 
 }
