@@ -2,7 +2,7 @@
  * @author Troitskaya Tamara (TT6)
  */
 
-package commands;
+package management;
 
 import task.Coordinates;
 import task.Location;
@@ -10,10 +10,9 @@ import task.Route;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
+
+import static java.lang.System.exit;
 
 public class StackStorage {
     private static Stack<Route> stack = new Stack<>();
@@ -71,7 +70,7 @@ public class StackStorage {
     }
 
     /**
-     * Prints to screen all the commands available.
+     * Prints to screen all the management available.
      */
     public void help() {
         System.out.println("""
@@ -84,6 +83,7 @@ public class StackStorage {
                  - show: writes all the elements to console;
                  - execute_script: inputs elements from file;
                  - delete_by_id: deletes the element with inputted id;
+                 - print_field_descending_distance: prints distances in descending order.;
                  - exit;
                  - other.
                 """);
@@ -102,8 +102,7 @@ public class StackStorage {
     /**
      * Adding one element from console.
      */
-    public void add() {
-        Scanner sc = new Scanner(System.in);
+    public void add(Scanner sc) {
         System.out.println("Input route data");
         System.out.println("Name (String)");
         String Name = sc.nextLine();
@@ -168,6 +167,72 @@ public class StackStorage {
         } else {
             System.err.println("Collection doesn't have any elements");
         }
+    }
+
+    /**
+     * Gets the management from file.
+     * @param path - path to file.
+     */
+    public void execute_script(String path) {
+        try {
+            File file = new File(path);
+            Scanner scanner = new Scanner(file);
+
+            loop(scanner);
+        } catch (FileNotFoundException e) {
+            System.out.println("execute script: " + e.getMessage());
+        }
+    }
+
+    public void loop(Scanner scanner) {
+        while (scanner.hasNext()) {
+            String command = scanner.nextLine();
+            switch (command) {
+                case "help" -> help();
+                case "info" -> info();
+                case "clear" -> {
+                    stack.clear();
+                    System.out.println("Now the collection is empty.\n");
+                }
+                case "save" -> {
+                    String outputfile = "out.txt";
+                    save(outputfile);
+                }
+                case "add" -> add(scanner);
+                case "exit" -> exit(0);
+                case "show" -> show();
+                case "delete", "remove", "delete_by_id" -> {
+                    System.out.println("Input the index");
+                    deleteById(scanner.nextLong());
+                }
+                case "execute_script" -> {
+                    System.out.println("Input filename");
+                    execute_script(scanner.nextLine());
+                }
+                case "print_field_descending_distance" -> {
+                    print_field_descending_distance();
+                }
+                default -> System.out.println(command + ": this command doesn't exist yet.");
+            }
+        }
+        //? is it nice?
+        scanner.close();
+    }
+
+    /**
+     * Prints distances in descending order.
+     */
+    public void print_field_descending_distance() {
+        System.out.println("ALL DISTANCES IN DESCENDING ORDER:");
+        ArrayList<Double> distances = new ArrayList<>();
+        for (var el : stack) {
+            distances.add(el.getDistance());
+        }
+        distances.sort(Comparator.comparing(el -> el));
+        for (int i = distances.size() - 1; i >= 0; i--) {
+            System.out.println(distances.get(i));
+        }
+        System.out.println('\n');
     }
 
 }
