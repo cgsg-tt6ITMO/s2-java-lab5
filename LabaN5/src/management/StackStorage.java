@@ -88,6 +88,7 @@ public class StackStorage {
                  - help: prints the list of all commands;
                  - add: adds your element to the collection;
                  - add_if_max: adds the element if it is larger than every element stored there;
+                 - insert_at: insert to place of inputted id;
                  - info: prints info about the collection;
                  - save: writes the collection data to file;
                  - clear: deletes all the elements in collection;
@@ -307,6 +308,7 @@ public class StackStorage {
                 case "update" -> update(scanner);
                 case "add_if_max" -> add_if_max(scanner);
                 case "remove_lower" -> remove_lower(scanner);
+                case "insert_at" -> insert_at(scanner);
                 default -> System.out.println(command + ": this command doesn't exist yet.");
             }
         }
@@ -656,6 +658,56 @@ public class StackStorage {
             if (route.compare(el) == -1) {
                 stack.remove(el);
             }
+        }
+    }
+
+    /**
+     * Inserts an element on place of index you input;
+     */
+    public void insert_at(Scanner sc) {
+        System.out.println("Input index");
+        try {
+            // обернуть потом в try catch и кидать неверный ввод
+            Long id = sc.nextLong();
+            String pause = sc.nextLine();
+
+            // this part works perfect
+            if (id > lastId) {
+                lastId = id - 1;
+                add(sc);
+            }
+            // good
+            else if (id < 1) {
+                System.err.println("insert_at: Incorrect id: less than 1");
+                // кинуть exception
+                throw new InputMismatchException();
+            } else {
+                boolean exist = false;
+                // проверить, существует ли такой индекс
+                for (var el : stack) {
+                    if (el.getId().equals(id)) {
+                        exist = true;
+                        // внутри foreach нельзя менять размер коллекции
+                    }
+                    // как только да, начать двигать все индексы
+                    if (exist) {
+                        el.setId(el.getId() + 1);
+                    }
+                }
+                // двиганием индексов мы получили ту же ситуацию, что и при !exist
+                add(sc);
+                stack.peek().setId(id);
+            }
+        } catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    insert_at(sc);
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
         }
     }
 
