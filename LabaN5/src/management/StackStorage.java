@@ -12,6 +12,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static java.lang.Math.sqrt;
 import static java.lang.System.exit;
 
 public class StackStorage {
@@ -85,6 +86,7 @@ public class StackStorage {
                  - delete_by_id: deletes the element with inputted id;
                  - print_field_descending_distance: prints distances in descending order;
                  - filter_greater_than_distance: prints elements with distance greater than the inputted one;
+                 - update: updates element with id inputted;
                  - exit;
                  - other.
                 """);
@@ -132,7 +134,11 @@ public class StackStorage {
 
         try {
             System.out.println("Location from (Float, Float, Long, String name)");
-            f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            String pause = sc.nextLine();
+            f = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
             boolean loop = true;
@@ -140,7 +146,11 @@ public class StackStorage {
                 try {
                     System.err.println("Incorrect data, input again:");
                     System.out.println("Location from (Float, Float, Long, String name)");
-                    f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    String pause = sc.nextLine();
+                    f = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
                     loop = true;
@@ -150,7 +160,11 @@ public class StackStorage {
 
         try {
             System.out.println("Location to (Float, Float, Long, String name)");
-            t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            String pause = sc.nextLine();
+            t = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
             boolean loop = true;
@@ -158,18 +172,21 @@ public class StackStorage {
                 try {
                     System.err.println("Incorrect data, input again:");
                     System.out.println("Location to (Float, Float, Long, String name)");
-                    t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    String pause = sc.nextLine();
+                    t = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
                     loop = true;
                 }
             } while (loop);
         }
-
         Route route = new Route(Name, coords, f, t);
         stack.add(route);
-        System.out.println("NEW ELEMENT ADDED SUCCESSFULLY\n");
 
+        System.out.println("NEW ELEMENT ADDED SUCCESSFULLY\n");
     }
 
     /**
@@ -256,7 +273,9 @@ public class StackStorage {
                     String outputfile = "out.txt";
                     save(outputfile);
                 }
-                case "add" -> add(scanner);
+                case "add" -> {
+                    add(scanner);
+                }
                 case "exit" -> exit(0);
                 case "show" -> show();
                 case "delete", "remove", "delete_by_id" -> {
@@ -273,6 +292,7 @@ public class StackStorage {
                 case "filter_greater_than_distance" -> {
                     filter_greater_than_distance(scanner);
                 }
+                case "update" -> update(scanner);
                 default -> System.out.println(command + ": this command doesn't exist yet.");
             }
         }
@@ -310,4 +330,123 @@ public class StackStorage {
         }
     }
 
+    /**
+     * Вспомогательная функция для update.
+     */
+    private void show_by_id(Long id) {
+         for (var r : stack) {
+            if (r.getId().equals(id)) {
+                System.out.println("Route Id:      " + r.getId() + "\nName:          " + r.getName()
+                        + "\nCreation date: " + r.getCreationDate()
+                        + "\nCoordinates:   " + r.getCoordinates().getX() + " " + r.getCoordinates().getY()
+                        + "\nLocation To:   " + r.getTo().getName() + " " + r.getTo().getX() + " " + r.getTo().getY() + " " + r.getTo().getZ()
+                        + "\nLocation From: " + r.getFrom().getName() + " " + r.getFrom().getX() + " " + r.getFrom().getY() + " " + r.getFrom().getZ()
+                        + "\nDistance:      " + r.getDistance() + "\n");
+            }
+        }
+    }
+
+    /**
+     * Updates element with id.
+     */
+    public void update( Scanner sc ) {
+        System.out.println("Id of element to be updated:");
+        Long id = sc.nextLong();
+        String pause = sc.nextLine();
+        /*
+         По идее мы можем спросить, какие поля он хочет апдейтить.
+         Но пока что пусть просто вводит все новые данные для route.
+         */
+        show_by_id(id);
+        System.out.println("Name (String)");
+        String Name = sc.nextLine();
+
+        Coordinates coords = null;
+        Location f = null;
+        Location t = null;
+
+        try {
+            System.out.println("Coordinates (Double, Float)");
+            coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Coordinates (Double, Float)");
+                    coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location from (Float, Float, Long, String name)");
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            pause = sc.nextLine();
+            f = new Location(x, y, z, sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location from (Float, Float, Long, String name)");
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    pause = sc.nextLine();
+                    f = new Location(x, y, z, sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location to (Float, Float, Long, String name)");
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            pause = sc.nextLine();
+            t = new Location(x, y, z, sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location to (Float, Float, Long, String name)");
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    pause = sc.nextLine();
+                    t = new Location(x, y, z, sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        for (var r : stack) {
+            if (r.getId().equals(id)) {
+                r.setName(Name);
+                r.setCoordinates(coords);
+                r.setFrom(f);
+                r.setTo(t);
+                Double dist = sqrt((f.getX()-t.getX()) * (f.getX()-t.getX()) + (f.getY()-t.getY()) * (f.getY()-t.getY())
+                        + (f.getZ()-t.getZ()) * (f.getZ()-t.getZ()));
+                r.setDistance(dist);
+            }
+        }
+        System.out.println("ELEMENT UPDATED SUCCESSFULLY\n");
+        show();
+    }
 }
