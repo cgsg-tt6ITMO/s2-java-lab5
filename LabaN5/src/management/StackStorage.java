@@ -51,18 +51,27 @@ public class StackStorage {
     }
 
     /**
-     * Save collection to file (not json).
-     * @param outp - name of file where to save the data.
+     * Save collection to json file.
      */
-    public void save(String outp) {
-        System.out.println("SAVE COLLECTION:\nСохранение производится в файл " + outp + "\n");
+    public void save_json() {
+        String out = "out.json";
+        System.out.println("SAVE COLLECTION:\nСохранение производится в файл " + out + "\n");
         try {
-            BufferedWriter output = new BufferedWriter(new FileWriter(outp));
+            BufferedWriter output = new BufferedWriter(new FileWriter(out));
 
+            output.write("\"MyStack\": [\n");
             for (var el : stack) {
-                output.write(el.getId() + " " + el.getName()
-                        + " " + el.getDistance() + "\n");
+                output.write("\t\"Route\" : {\n"
+                        + "\t\t\"id\": " + el.getId() + ", \n"
+                        + "\t\t\"name\": \"" + el.getName() + "\", \n"
+                        + "\t\t\"creationDate\": \"" + el.getCreationDate()
+                        + "\",\n\t\t\"coordinates\": {\n\t\t\t\"x\": " + el.getCoordinates().getX() + ",\n\t\t\t\"y\": " + el.getCoordinates().getY()
+                        + "\n\t\t},\n\t\t\"to\": {\n\t\t\t\"name\": \"" + el.getTo().getName() + "\",\n\t\t\t\"x\": " + el.getTo().getX() + ",\n\t\t\t\"y\": " + el.getTo().getY() + ",\n\t\t\t\"z\": " + el.getTo().getZ()
+                        + "\n\t\t},\n\t\t\"from\": {\n\t\t\t\"name\": \"" + el.getFrom().getName() + "\",\n\t\t\t\"x\": " + el.getFrom().getX() + ",\n\t\t\t\"y\": " + el.getFrom().getY() + ",\n\t\t\t\"z\": " + el.getFrom().getZ()
+                        + "\n\t\t},\n\t\t\"distance\": " + el.getDistance() + "\n"
+                        + "\t},\n");
             }
+            output.write("]\n");
             output.close();
         }
         catch (IOException e) {
@@ -269,10 +278,7 @@ public class StackStorage {
                     stack.clear();
                     System.out.println("Now the collection is empty.\n");
                 }
-                case "save" -> {
-                    String outputfile = "out.txt";
-                    save(outputfile);
-                }
+                case "save","json" -> save_json();
                 case "add" -> {
                     add(scanner);
                 }

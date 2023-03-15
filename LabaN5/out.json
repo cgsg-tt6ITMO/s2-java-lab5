@@ -1,0 +1,68 @@
+"MyStack": [
+	"Route" : {
+		"id": 1, 
+		"name": "default-firts-element ", 
+		"creationDate": "2023-03-15T12:18:48.322731700",
+		"coordinates": {
+			"x": 5.1,
+			"y": 3.14
+		},
+		"to": {
+			"name": " loc2",
+			"x": 1.0,
+			"y": 2.01,
+			"z": 5
+		},
+		"from": {
+			"name": " loc1",
+			"x": 18.0,
+			"y": 22.05,
+			"z": 50
+		},
+		"distance": 52.11143408600458
+	},
+	"Route" : {
+		"id": 2, 
+		"name": "meme", 
+		"creationDate": "2023-03-15T12:18:48.326385800",
+		"coordinates": {
+			"x": 5.1,
+			"y": 3.14
+		},
+		"to": {
+			"name": " loc2",
+			"x": 1.0,
+			"y": 2.0,
+			"z": 5
+		},
+		"from": {
+			"name": " loc1",
+			"x": 18.0,
+			"y": 22.05,
+			"z": 50
+		},
+		"distance": 52.11528030631947
+	},
+	"Route" : {
+		"id": 3, 
+		"name": "rfeds", 
+		"creationDate": "2023-03-15T12:19:07.403535400",
+		"coordinates": {
+			"x": 3.0,
+			"y": 345.0
+		},
+		"to": {
+			"name": "dthf",
+			"x": 436.0,
+			"y": 765.0,
+			"z": 76
+		},
+		"from": {
+			"name": "fh",
+			"x": 64.0,
+			"y": 46.0,
+			"z": 76
+		},
+		"distance": 809.5338164647602
+	},
+]
