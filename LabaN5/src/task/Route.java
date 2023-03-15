@@ -11,6 +11,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static java.lang.Math.sqrt;
+import java.lang.Integer;
 
 /**
  * Elements of the collection.
@@ -31,7 +32,18 @@ public class Route {
 
     @Override
     public int hashCode() {
-        return Integer.parseInt(String.valueOf(distance));
+        return (int)(Math.round(Double.parseDouble(String.valueOf(distance*1000))));
+    }
+
+    /**
+     * Compares this route with the one in argument.
+     * @param r - Route to be compared with
+     * @return  1 - this > r
+     *         -1 - this < r
+     *          0 - this = r
+     */
+    public int compare(Route r) {
+        return Integer.compare(this.hashCode(), r.hashCode());
     }
 
     /**
@@ -186,6 +198,7 @@ public class Route {
     /**
      * Sets the length of the route.
      * @param distance - the length (long)
+     * @TODO is it correct that in case of distance < 1 we re-input only the distance, not the locations?
      */
     public void setDistance(Double distance) {
         try {

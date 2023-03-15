@@ -87,6 +87,7 @@ public class StackStorage {
                 COMMANDS AVAILABLE:
                  - help: prints the list of all commands;
                  - add: adds your element to the collection;
+                 - add_if_max: adds the element if it is larger than every element stored there;
                  - info: prints info about the collection;
                  - save: writes the collection data to file;
                  - clear: deletes all the elements in collection;
@@ -252,16 +253,26 @@ public class StackStorage {
 
     /**
      * Gets the management from file.
-     * @param path - path to file.
      */
-    public void execute_script(String path) {
+    public void execute_script(Scanner sc) {
         try {
+            String path = sc.nextLine();
             File file = new File(path);
             Scanner scanner = new Scanner(file);
-
             loop(scanner);
         } catch (FileNotFoundException e) {
-            System.out.println("execute script: " + e.getMessage());
+            boolean loop = true;
+            do {
+                try {
+                    System.out.println("execute script: " + e.getMessage());
+                    System.err.println("Input filename again:");
+                    execute_script(sc);
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+
         }
     }
 
@@ -278,10 +289,8 @@ public class StackStorage {
                     stack.clear();
                     System.out.println("Now the collection is empty.\n");
                 }
-                case "save","json" -> save_json();
-                case "add" -> {
-                    add(scanner);
-                }
+                case "save", "json" -> save_json();
+                case "add" -> add(scanner);
                 case "exit" -> exit(0);
                 case "show" -> show();
                 case "delete", "remove", "delete_by_id" -> {
@@ -290,15 +299,12 @@ public class StackStorage {
                 }
                 case "execute_script" -> {
                     System.out.println("Input filename");
-                    execute_script(scanner.nextLine());
+                    execute_script(scanner);
                 }
-                case "print_field_descending_distance" -> {
-                    print_field_descending_distance();
-                }
-                case "filter_greater_than_distance" -> {
-                    filter_greater_than_distance(scanner);
-                }
+                case "print_field_descending_distance" -> print_field_descending_distance();
+                case "filter_greater_than_distance" -> filter_greater_than_distance(scanner);
                 case "update" -> update(scanner);
+                case "add_if_max" -> add_if_max(scanner);
                 default -> System.out.println(command + ": this command doesn't exist yet.");
             }
         }
@@ -355,7 +361,7 @@ public class StackStorage {
     /**
      * Updates element with id.
      */
-    public void update( Scanner sc ) {
+    public void update(Scanner sc) {
         System.out.println("Id of element to be updated:");
         Long id = sc.nextLong();
         String pause = sc.nextLine();
@@ -455,4 +461,107 @@ public class StackStorage {
         System.out.println("ELEMENT UPDATED SUCCESSFULLY\n");
         show();
     }
+
+    /**
+     * Adds element only if it is larger than every element in the collection.
+     */
+    public void add_if_max(Scanner sc) {
+        int n = stack.size();
+
+        System.out.println("ADD IF MAX:");
+        System.out.println("Input route data");
+        System.out.println("Name (String)");
+        String Name = sc.nextLine();
+
+        Coordinates coords = null;
+        Location f = null;
+        Location t = null;
+
+        try {
+            System.out.println("Coordinates (Double, Float)");
+            coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Coordinates (Double, Float)");
+                    coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location from (Float, Float, Long, String name)");
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            String pause = sc.nextLine();
+            f = new Location(x, y, z, sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location from (Float, Float, Long, String name)");
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    String pause = sc.nextLine();
+                    f = new Location(x, y, z, sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+
+        try {
+            System.out.println("Location to (Float, Float, Long, String name)");
+            float x = Float.parseFloat(sc.nextLine());
+            Float y = Float.parseFloat(sc.nextLine());
+            long z = sc.nextLong();
+            String pause = sc.nextLine();
+            t = new Location(x, y, z, sc.nextLine());
+        }
+        catch (NumberFormatException | InputMismatchException e) {
+            boolean loop = true;
+            do {
+                try {
+                    System.err.println("Incorrect data, input again:");
+                    System.out.println("Location to (Float, Float, Long, String name)");
+                    float x = Float.parseFloat(sc.nextLine());
+                    Float y = Float.parseFloat(sc.nextLine());
+                    long z = sc.nextLong();
+                    String pause = sc.nextLine();
+                    t = new Location(x, y, z, sc.nextLine());
+                    loop = false;
+                } catch (NumberFormatException | InputMismatchException exception){
+                    loop = true;
+                }
+            } while (loop);
+        }
+        Route route = new Route(Name, coords, f, t);
+        // сравнение
+        boolean flag = true;
+        for (var el : stack) {
+            if (route.compare(el) != 1) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            stack.add(route);
+            System.out.println("NEW ELEMENT ADDED SUCCESSFULLY\n");
+        }
+        else {
+            System.out.println("The element is not max, so it was not added.\n");
+        }
+    }
+
 }
