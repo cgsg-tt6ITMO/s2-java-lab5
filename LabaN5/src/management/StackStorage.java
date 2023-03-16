@@ -11,13 +11,12 @@ import task.Route;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
-
 import static java.lang.Math.sqrt;
 import static java.lang.System.exit;
 
 public class StackStorage {
     private static Stack<Route> stack = new Stack<>();
-    //тип, дата инициализации, количество элементов и т.д
+
     private final String type;
     private final java.time.LocalDateTime creationDate;
     private static Long lastId = 0L;
@@ -99,6 +98,7 @@ public class StackStorage {
                  - print_field_descending_distance: prints distances in descending order;
                  - filter_greater_than_distance: prints elements with distance greater than the inputted one;
                  - update: updates element with id inputted;
+                 - group_counting_by_from: outputs numbers of elements with the same from;
                  - exit;
                  - other.
                 """);
@@ -149,7 +149,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             f = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -161,7 +161,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     f = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -175,7 +175,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             t = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -187,7 +187,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     t = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -214,9 +214,9 @@ public class StackStorage {
             // это чтобы не считывал энтер между числом исходных Route и именем
             sc.nextLine();
             while (q > 0) {
-                // название маршрута
+                // Route's name
                 String Name = sc.nextLine();
-                // координаты (double, float)
+                // Coordinates (double, float)
                 Coordinates coords = new Coordinates(Double.parseDouble(sc.next()), Float.parseFloat(sc.next()));
                 // значения координат для Location from и название локации
                 Location f = new Location(Float.parseFloat(sc.next()), Float.parseFloat(sc.next()), sc.nextLong(), sc.nextLine());
@@ -236,7 +236,6 @@ public class StackStorage {
      * @param id - id of element to be deleted
      */
     public void deleteById(Long id) {
-        // начальный размер массива
         int begin = stack().size();
         if (begin != 0) {
             stack().removeIf(el -> Objects.equals(el.getId(), id));
@@ -309,6 +308,7 @@ public class StackStorage {
                 case "add_if_max" -> add_if_max(scanner);
                 case "remove_lower" -> remove_lower(scanner);
                 case "insert_at" -> insert_at(scanner);
+                case "group_counting_by_from" -> group_counting_by_from();
                 default -> System.out.println(command + ": this command doesn't exist yet.");
             }
         }
@@ -347,7 +347,7 @@ public class StackStorage {
     }
 
     /**
-     * Вспомогательная функция для update.
+     * Method for update.
      */
     private void show_by_id(Long id) {
          for (var r : stack) {
@@ -368,11 +368,11 @@ public class StackStorage {
     public void update(Scanner sc) {
         System.out.println("Id of element to be updated:");
         Long id = sc.nextLong();
-        String pause = sc.nextLine();
-        /*
-         По идее мы можем спросить, какие поля он хочет апдейтить.
-         Но пока что пусть просто вводит все новые данные для route.
-         */
+        sc.nextLine();
+
+        // later: we might ask the client which fields they would like to change...
+        // but now they have to change all the fields
+
         show_by_id(id);
         System.out.println("Name (String)");
         String Name = sc.nextLine();
@@ -404,7 +404,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            pause = sc.nextLine();
+            sc.nextLine();
             f = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -416,7 +416,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    pause = sc.nextLine();
+                    sc.nextLine();
                     f = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -430,7 +430,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            pause = sc.nextLine();
+            sc.nextLine();
             t = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -442,7 +442,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    pause = sc.nextLine();
+                    sc.nextLine();
                     t = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -504,7 +504,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             f = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -516,7 +516,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     f = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -530,7 +530,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             t = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -542,7 +542,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     t = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -572,7 +572,7 @@ public class StackStorage {
      * Removes all elements lower than inputted.
      */
     public void remove_lower(Scanner sc) {
-        // сначала вводим элемент. в коллекцию не добавляем его
+        // firstly, input an element but not put it in collection
         System.out.println("REMOVE LOWER:");
         System.out.println("Input route data");
         System.out.println("Name (String)");
@@ -605,7 +605,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             f = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -617,7 +617,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     f = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -631,7 +631,7 @@ public class StackStorage {
             float x = Float.parseFloat(sc.nextLine());
             Float y = Float.parseFloat(sc.nextLine());
             long z = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
             t = new Location(x, y, z, sc.nextLine());
         }
         catch (NumberFormatException | InputMismatchException e) {
@@ -643,7 +643,7 @@ public class StackStorage {
                     float x = Float.parseFloat(sc.nextLine());
                     Float y = Float.parseFloat(sc.nextLine());
                     long z = sc.nextLong();
-                    String pause = sc.nextLine();
+                    sc.nextLine();
                     t = new Location(x, y, z, sc.nextLine());
                     loop = false;
                 } catch (NumberFormatException | InputMismatchException exception){
@@ -653,7 +653,7 @@ public class StackStorage {
         }
         Route route = new Route(Name, coords, f, t);
 
-        // потом в цикле перебираем все элементы и удаляем если оно меньше
+        // and then remove all the elements less than inputted
         for (var el : stack) {
             if (route.compare(el) == -1) {
                 stack.remove(el);
@@ -667,34 +667,30 @@ public class StackStorage {
     public void insert_at(Scanner sc) {
         System.out.println("Input index");
         try {
-            // обернуть потом в try catch и кидать неверный ввод
             Long id = sc.nextLong();
-            String pause = sc.nextLine();
+            sc.nextLine();
 
-            // this part works perfect
             if (id > lastId) {
                 lastId = id - 1;
                 add(sc);
             }
-            // good
             else if (id < 1) {
                 System.err.println("insert_at: Incorrect id: less than 1");
-                // кинуть exception
                 throw new InputMismatchException();
             } else {
                 boolean exist = false;
-                // проверить, существует ли такой индекс
+                // check if this index exists
                 for (var el : stack) {
                     if (el.getId().equals(id)) {
                         exist = true;
-                        // внутри foreach нельзя менять размер коллекции
+                        // inside foreach you can't change the size of the collection
                     }
-                    // как только да, начать двигать все индексы
+                    // as soon as exist becomes true, start to shift all indexes
                     if (exist) {
                         el.setId(el.getId() + 1);
                     }
                 }
-                // двиганием индексов мы получили ту же ситуацию, что и при !exist
+                // by shifting indexes we got the same situation as for !exist
                 add(sc);
                 stack.peek().setId(id);
             }
@@ -708,6 +704,26 @@ public class StackStorage {
                     loop = true;
                 }
             } while (loop);
+        }
+    }
+
+    /**
+     * Outputs number of elements with equal Location from.
+     */
+    public void group_counting_by_from() {
+        HashMap<String, Integer> grouped = new HashMap<>();
+
+        for (var el : stack) {
+            String from = el.getFrom().toString();
+            if (!grouped.containsKey(from)) {
+                grouped.put(from, 1);
+            }
+            else {
+                grouped.put(from, grouped.get(from) + 1);
+            }
+        }
+        for (var el : grouped.keySet()) {
+            System.out.println("Location from: " + el + "\nNumber of elements with this from: " + grouped.get(el));
         }
     }
 

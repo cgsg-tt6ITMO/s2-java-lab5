@@ -1,7 +1,5 @@
 /**
  * @author Troitskaya Tamara (TT6)
- * 2023/02/08:
- * now != null is checked not in constructor, but in setters
  * need javadoc
  */
 
@@ -15,6 +13,18 @@ public class Location {
     private Float y; //Поле не может быть null
     private long z;
     private String name; //Строка не может быть пустой, Поле может быть null
+
+    /**
+     * For 'group_counting_by_from' method.
+     */
+    public boolean equals(Location l) {
+        return (x == l.getX() && y.equals(l.getY()) && z == l.getZ() && name.equals(l.name));
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + x + " " + y + " " + z;
+    }
 
     /**
      * Default Location constructor.

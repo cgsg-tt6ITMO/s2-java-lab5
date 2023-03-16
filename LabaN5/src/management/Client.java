@@ -7,7 +7,6 @@ package management;
 import java.util.Locale;
 import java.util.Scanner;
 
-
 /**
  * This class handles the commands that the client inputs in loop.
  */
