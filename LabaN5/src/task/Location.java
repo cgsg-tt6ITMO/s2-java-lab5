@@ -1,13 +1,14 @@
 /**
- * @author Troitskaya Tamara (TT6)
- * need javadoc
+ * @author Troitskaya Tamara (cgsg-tt6)
  */
-
 package task;
 
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Stores Location data.
+ */
 public class Location {
     private float x;
     private Float y; //Поле не может быть null

@@ -2,19 +2,19 @@
 	"Route" : {
 		"id": 1, 
 		"name": "default-firts-element ", 
-		"creationDate": "2023-03-16T13:08:14.505015100",
+		"creationDate": "2023-03-26T14:27:40.452781800",
 		"coordinates": {
 			"x": 5.1,
 			"y": 3.14
 		},
 		"to": {
-			"name": " loc2",
+			"name": "loc2",
 			"x": 1.0,
 			"y": 2.01,
 			"z": 5
 		},
 		"from": {
-			"name": " loc1",
+			"name": "loc1",
 			"x": 18.0,
 			"y": 22.05,
 			"z": 50
@@ -24,111 +24,23 @@
 	"Route" : {
 		"id": 2, 
 		"name": "meme", 
-		"creationDate": "2023-03-16T13:08:14.505015100",
+		"creationDate": "2023-03-26T14:27:40.455793400",
 		"coordinates": {
 			"x": 5.1,
 			"y": 3.14
 		},
 		"to": {
-			"name": " loc2",
+			"name": "loc2",
 			"x": 1.0,
 			"y": 2.0,
 			"z": 5
 		},
 		"from": {
-			"name": " loc1",
+			"name": "loc1",
 			"x": 18.0,
 			"y": 22.05,
 			"z": 50
 		},
 		"distance": 52.11528030631947
-	},
-	"Route" : {
-		"id": 3, 
-		"name": "faf4", 
-		"creationDate": "2023-03-16T13:08:26.136785700",
-		"coordinates": {
-			"x": 5.1,
-			"y": 3.14
-		},
-		"to": {
-			"name": "loc2",
-			"x": 1.0,
-			"y": 2.01,
-			"z": 5
-		},
-		"from": {
-			"name": "loc1",
-			"x": 0.0,
-			"y": 0.0,
-			"z": 0
-		},
-		"distance": 5.4808849739486645
-	},
-	"Route" : {
-		"id": 4, 
-		"name": "faf5", 
-		"creationDate": "2023-03-16T13:08:26.136785700",
-		"coordinates": {
-			"x": 5.1,
-			"y": 3.14
-		},
-		"to": {
-			"name": "loc2",
-			"x": 1.0,
-			"y": 2.0,
-			"z": 5
-		},
-		"from": {
-			"name": "loc1",
-			"x": 0.0,
-			"y": 0.0,
-			"z": 0
-		},
-		"distance": 5.477225575051661
-	},
-	"Route" : {
-		"id": 5, 
-		"name": "faf5", 
-		"creationDate": "2023-03-16T13:08:26.136785700",
-		"coordinates": {
-			"x": 5.1,
-			"y": 3.14
-		},
-		"to": {
-			"name": "loc2",
-			"x": 1.0,
-			"y": 2.0,
-			"z": 5
-		},
-		"from": {
-			"name": "loc1",
-			"x": 10.0,
-			"y": 10.0,
-			"z": 10
-		},
-		"distance": 13.038404810405298
-	},
-	"Route" : {
-		"id": 6, 
-		"name": "faf5", 
-		"creationDate": "2023-03-16T13:08:26.136785700",
-		"coordinates": {
-			"x": 5.1,
-			"y": 3.14
-		},
-		"to": {
-			"name": "loc2",
-			"x": 1.0,
-			"y": 2.0,
-			"z": 5
-		},
-		"from": {
-			"name": "loc1",
-			"x": 10.0,
-			"y": 10.0,
-			"z": 5
-		},
-		"distance": 12.041594578792296
 	},
 ]

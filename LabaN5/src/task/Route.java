@@ -1,16 +1,14 @@
 /**
- * @author Troitskaya Tamara (TT6)
+ * @author Troitskaya Tamara (cgsg-tt6)
  */
-
 package task;
 
-import management.StackStorage;
+import management.CollectionManager;
 
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.Math.sqrt;
-import java.lang.Integer;
 
 /**
  * Elements of the collection.
@@ -42,7 +40,7 @@ public class Route {
      *          0 - this = r
      */
     public int compare(Route r) {
-        return Integer.compare(this.hashCode(), r.hashCode());
+        return Double.compare(distance, r.getDistance());
     }
 
     /**
@@ -98,8 +96,8 @@ public class Route {
      * Однако, потом добавится функция изменения полей элемента. Получается, для той функции поле id будет неизменяемым.
      */
     public void setId() {
-        StackStorage.setLastId(StackStorage.getLastId() + 1);;
-        this.id = StackStorage.getLastId();
+        CollectionManager.setLastId(CollectionManager.getLastId() + 1);;
+        this.id = CollectionManager.getLastId();
     }
 
     public Long getId() {

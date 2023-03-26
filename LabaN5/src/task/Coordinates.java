@@ -1,7 +1,6 @@
 /**
- * @author Troitskaya Tamara (TT6)
+ * @author Troitskaya Tamara (cgsg-tt6)
  */
-
 package task;
 
 import java.util.InputMismatchException;
