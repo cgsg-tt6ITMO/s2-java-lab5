@@ -11,10 +11,10 @@ loc1
 2.01
 5
 loc2
-show
+/show
 remove_by_id
 1
-show
+/show
 insert_at
 -3
 1
@@ -60,4 +60,7 @@ loc2
 save
 info
 show
+execute_script
+2.txt
+a.txt
 exit

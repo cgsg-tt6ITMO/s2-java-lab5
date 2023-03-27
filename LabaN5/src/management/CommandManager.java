@@ -6,7 +6,6 @@ package management;
 import commands.*;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Storage for all commands.
@@ -38,6 +37,7 @@ public class CommandManager {
         InsertAtCommand insertAt = new InsertAtCommand(collectionManager, inputManager, this);
         UpdateCommand update = new UpdateCommand(collectionManager, inputManager);
         SaveCommand save = new SaveCommand("out.json", collectionManager);
+        ExecuteScriptCommand executeScript = new ExecuteScriptCommand(collectionManager, inputManager);
 
         SortingCommand sort = new SortingCommand(collectionManager);
 
@@ -56,19 +56,9 @@ public class CommandManager {
         commands.put(insertAt.getName(), insertAt);
         commands.put(update.getName(), update);
         commands.put(save.getName(), save);
+        commands.put(executeScript.getName(), executeScript);
 
         commands.put("sort", sort);
-    }
-
-    /**
-     * @param sc - sets scanner for input.
-     */
-    public void setScanner(Scanner sc) {
-        this.inpMan.setScanner(sc);
-    }
-
-    public void setInpMan(Input inpMan) {
-        this.inpMan = inpMan;
     }
 
     /**

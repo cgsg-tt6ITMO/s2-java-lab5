@@ -62,4 +62,3 @@ ghjghj
 save
 info
 show
-exit

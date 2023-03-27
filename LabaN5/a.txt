@@ -51,4 +51,6 @@ show
 group_counting_by_from
 save
 info
+execute_script
+1.txt
 exit
