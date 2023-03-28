@@ -33,7 +33,7 @@ public class UpdateCommand extends AbstractCommand implements Command {
         for (var r : storage.stack()) {
             if (r.getId().equals(id)) {
                 System.out.println("Route Id:      " + r.getId() + "\nName:          " + r.getName()
-                        + "\nCreation date: " + r.getCreationDate()
+                        //+ "\nCreation date: " + r.getCreationDate()
                         + "\nCoordinates:   " + r.getCoordinates().getX() + " " + r.getCoordinates().getY()
                         + "\nLocation From: " + r.getFrom().getName() + " " + r.getFrom().getX() + " " + r.getFrom().getY() + " " + r.getFrom().getZ()
                         + "\nLocation To:   " + r.getTo().getName() + " " + r.getTo().getX() + " " + r.getTo().getY() + " " + r.getTo().getZ()

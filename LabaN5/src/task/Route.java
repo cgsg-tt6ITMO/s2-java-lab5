@@ -5,7 +5,7 @@ package task;
 
 import management.CollectionManager;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.Math.sqrt;
@@ -17,7 +17,7 @@ public class Route {
     private Long id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    //private ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Location from; //Поле не может быть null
     private Location to; //Поле может быть null
     private Double distance; //Значение поля должно быть больше 1
@@ -49,7 +49,7 @@ public class Route {
     public Route() {
         // автогенерируется
         setId();
-        setCreationDate(LocalDateTime.now());
+        ///setCreationDate(ZonedDateTime.now());
         // при не дефолтном конструкторе - меняется
         setName("route#" + id);
         setCoordinates(new Coordinates(5.17, 3.41f));
@@ -91,9 +91,7 @@ public class Route {
     }
 
     /**
-     * Автоматически генерирующийся id.
-     * Он и так будет не null и > 0 и уникальный, можно не проверять.
-     * Однако, потом добавится функция изменения полей элемента. Получается, для той функции поле id будет неизменяемым.
+     * Automatically generated unique id.
      */
     public void setId() {
         CollectionManager.setLastId(CollectionManager.getLastId() + 1);;
@@ -136,15 +134,15 @@ public class Route {
     public Coordinates getCoordinates() {
         return coordinates;
     }
-
-    public void setCreationDate(LocalDateTime creationDate) {
+/*
+    public void setCreationDate(ZonedDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getCreationDate() {
+    public ZonedDateTime getCreationDate() {
         return creationDate;
     }
-
+*/
     /**
      * Sets where do we go to.
      * @param to != null, Location - point of destination.

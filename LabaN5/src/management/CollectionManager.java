@@ -6,18 +6,18 @@ package management;
 import commands.DefaultInputCommand;
 import task.Route;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
- * Stores the collection.
+ * Stores the collection and info about it.
  */
 public class CollectionManager {
     private static Stack<Route> stack = new Stack<>();
     private final String type;
-    private final java.time.LocalDateTime creationDate;
+    private ZonedDateTime creationDate;
     private static Long lastId = 0L;
-    // for 'execute_script'
+    // for 'execute_script' -- array of all used scripts.
     private ArrayList<String> files = new ArrayList<>();
 
     /**
@@ -45,30 +45,48 @@ public class CollectionManager {
     }
 
     // for 'add'
+
+    /**
+     * @return id of last element in collection (so that the new id should be lastId + 1).
+     */
     public static Long getLastId() {
         return lastId;
     }
 
+    /**
+     * Changes the id of last element.
+     * @param Id id of new last element.
+     */
     public static void setLastId(Long Id) {
         lastId = Id;
     }
 
-    // for 'show'
-    public LocalDateTime getCreationDate() {
+    // for 'info'
+    public ZonedDateTime getCreationDate() {
         return creationDate;
     }
 
+    /**
+     * @return type of the collection for 'info' (Stack);
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * @return instance of Stack with all elements.
+     */
     public Stack<Route> stack() {
         return stack;
     }
 
+    /**
+     * Collection initialization.
+     * @param file file with default collection.
+     */
     public CollectionManager(String file) {
         type = "Stack";
-        creationDate = LocalDateTime.now();
+        creationDate = ZonedDateTime.now();
         // initialization:
         DefaultInputCommand defaultInp = new DefaultInputCommand(file, this);
         defaultInp.execute();

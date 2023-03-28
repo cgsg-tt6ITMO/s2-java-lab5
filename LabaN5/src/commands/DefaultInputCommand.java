@@ -3,13 +3,14 @@
  */
 package commands;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import management.CollectionManager;
 import management.Input;
 import management.InputManager;
 import task.Route;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Stack;
@@ -30,24 +31,27 @@ public class DefaultInputCommand implements Command {
     }
 
     /**
-     * Input elements from file "defaultcollection.txt".
+     * Input from json.
      */
     @Override
     public void execute() {
-        Stack<Route> stack = storage.stack();
-        File file = new File(filename);
-        try {
-            Scanner sc = new Scanner(file).useLocale(Locale.US);
-            Input inputManager = new InputManager(sc);
-            int q = sc.nextInt();
-            sc.nextLine();
-            while (q > 0) {
-                stack.add(inputManager.inpRoute());
-                q--;
+        Gson gson = new Gson();
+        storage.stack().clear();
+        try (Scanner sc = new Scanner(new File(filename))) {
+            Stack<Route> srut = gson.fromJson(sc.nextLine().trim(), new TypeToken<Stack<Route>>() {}.getType());
+            for (var r : srut) {
+                System.out.println("Route Id:      " + r.getId() + "\nName:          " + r.getName()
+                        //+ "\nCreation date: " + r.getCreationDate()
+                        + "\nCoordinates:   " + r.getCoordinates().getX() + " " + r.getCoordinates().getY()
+                        + "\nLocation From: " + r.getFrom().getName() + " " + r.getFrom().getX() + " " + r.getFrom().getY() + " " + r.getFrom().getZ()
+                        + "\nLocation To:   " + r.getTo().getName() + " " + r.getTo().getX() + " " + r.getTo().getY() + " " + r.getTo().getZ()
+                        + "\nDistance:      " + r.getDistance() + "\n");
             }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            storage.stack().addAll(srut);
+            System.out.println("SUCCESS");
+        } catch (IOException exception) {
+            System.err.println("default_input: " + exception.getMessage());
         }
     }
+
 }

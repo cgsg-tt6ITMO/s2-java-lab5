@@ -5,7 +5,7 @@ package commands;
 
 import management.CollectionManager;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Handle 'info' method.
@@ -26,7 +26,7 @@ public class InfoCommand extends AbstractCommand implements Command{
      */
     @Override
     public void execute() {
-        LocalDateTime date = collectionManager.getCreationDate();
+        var date = collectionManager.getCreationDate();
         System.out.println("COLLECTION INFO:\n"
                 + "creation time: " + date.getHour() + ":" + (date.getMinute() > 9 ? date.getMinute() : "0" + date.getMinute())
                 + "\ntype of storage: " + collectionManager.getType() + "\nnumber of elements: " + collectionManager.stack().size() + "\n");
