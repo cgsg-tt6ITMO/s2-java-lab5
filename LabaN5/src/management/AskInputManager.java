@@ -11,9 +11,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Должно работать и для ввода из файла, и для нормального
- * Причём для ввода из файла ре-инпут должен делаться, скорее всего, из консоли
- * Inputs data, gently reminding the client about what variable they are supposed to input and it's type and providing re-input in case of wrong input.
+ * Inputs data, gently reminding the client about what variable they are supposed to input,
+ *   and it's type and providing re-input in case of wrong input.
  */
 public class AskInputManager implements Input {
     private Scanner sc;
@@ -96,7 +95,7 @@ public class AskInputManager implements Input {
      * @param name - name of the variable.
      * @return result (Float).
      */
-    private Float inpFloat(String name) {
+    public Float inpFloat(String name) {
         Float res = null;
 
         boolean loop = true;
@@ -152,6 +151,14 @@ public class AskInputManager implements Input {
     public String inpString(String name) {
         System.out.println(name + " (String)");
         return sc.nextLine();
+    }
+
+    /**
+     * @return description for the AskInputManager.
+     */
+    @Override
+    public String toString() {
+        return "Input manager which prints tips for inputting data";
     }
 
 }

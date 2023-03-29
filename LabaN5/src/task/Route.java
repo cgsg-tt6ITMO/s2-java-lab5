@@ -3,6 +3,8 @@
  */
 package task;
 
+import exceptions.NullLocationException;
+import management.AskInputManager;
 import management.CollectionManager;
 
 import java.time.ZonedDateTime;
@@ -21,6 +23,8 @@ public class Route {
     private Location from; //Поле не может быть null
     private Location to; //Поле может быть null
     private Double distance; //Значение поля должно быть больше 1
+
+    private AskInputManager aim = new AskInputManager(new Scanner(System.in));
 
     @Override
     public String toString() {
@@ -44,13 +48,11 @@ public class Route {
     }
 
     /**
-     * Дефолтный конструктор для дебаггинга.
+     * Default constructor for debugging.
      */
     public Route() {
-        // автогенерируется
         setId();
         ///setCreationDate(ZonedDateTime.now());
-        // при не дефолтном конструкторе - меняется
         setName("route#" + id);
         setCoordinates(new Coordinates(5.17, 3.41f));
         setFrom(new Location());
@@ -62,7 +64,7 @@ public class Route {
     }
 
     /**
-     * Наиболее часто используется.
+     * The most frequently used constructor.
      */
     public Route(String Name, Coordinates coords, Location f, Location t) {
         this();
@@ -76,7 +78,7 @@ public class Route {
     }
 
     /**
-     * Если захочется вручную задать расстояние.
+     * In case we need to set distance not automatically.
      */
     public Route(String Name, Coordinates coords, Location f, Location t, Double distance) {
         this(Name, coords, f, t);
@@ -98,6 +100,9 @@ public class Route {
         this.id = CollectionManager.getLastId();
     }
 
+    /**
+     * @return id of the Route.
+     */
     public Long getId() {
         return id;
     }
@@ -115,22 +120,29 @@ public class Route {
         }
     }
 
+    /**
+     * @return Name of the Route.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param coordinates set coordinates for route.
+     */
     public void setCoordinates(Coordinates coordinates) {
         if (coordinates != null) {
             this.coordinates = coordinates;
         } else {
             System.err.println("Class Route: Field coordinates is null");
-            System.out.println("Input correct data:\nCoordinates(Double, Float)");
-            Scanner sc = new Scanner(System.in);
-            Coordinates coords = new Coordinates(Double.parseDouble(sc.nextLine()), Float.parseFloat(sc.nextLine()));
+            Coordinates coords = aim.inpCoordinates("Input correct data:\nCoordinates(Double, Float)");
             setCoordinates(coords);
         }
     }
 
+    /**
+     * @return Coordinates of this Route.
+     */
     public Coordinates getCoordinates() {
         return coordinates;
     }
@@ -152,14 +164,15 @@ public class Route {
             this.to = to;
         }
         else {
-            System.err.println("Class Route: Location 'to' is null");
-            System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
-            Scanner sc = new Scanner(System.in);
-            Location t = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
+            System.err.println("Class Route: Location 'to' is null");;
+            Location t = aim.inpLocation("Input correct data:\nLocation(Float, Float, Long, String name)");
             setTo(t);
         }
     }
 
+    /**
+     * @return Location To of the Route.
+     */
     public Location getTo() {
         return to;
     }
@@ -169,28 +182,26 @@ public class Route {
      * @param from != null, Location - the beginning of our route.
      */
     public void setFrom(Location from) {
-        try {
-            if (from != null) {
-                this.from = from;
-            } else {
-                throw new InputMismatchException();
-            }
-        }
-        catch (NumberFormatException | InputMismatchException e) {
-            boolean loop = true;
-            do {
-                try {
-                    System.err.println("Class Route: Location 'from' is null");
-                    System.out.println("Input correct data:\nLocation(Float, Float, Long, String name)");
-                    Scanner sc = new Scanner(System.in);
-                    Location f = new Location(Float.parseFloat(sc.nextLine()), Float.parseFloat(sc.nextLine()), sc.nextLong(), sc.nextLine());
-                    setFrom(f);
-                    loop = false;
-                } catch (NumberFormatException | InputMismatchException exception) {
-                    loop = true;
+        boolean loop = true, wasErr = false;
+        do {
+            try {
+                if (from != null) {
+                    this.from = from;
+                } else {
+                    wasErr = true;
+                    throw new NullLocationException("setFrom");
                 }
-            } while (loop);
-        }
+                if (wasErr) {
+                    System.err.println("Class Route: Location 'from' is null");
+                    Location f = aim.inpLocation("Input correct data:\nLocation(Float, Float, Long, String name)");
+                    setFrom(f);
+                }
+                loop = false;
+            }
+            catch (NullLocationException e) {
+                loop = true;
+            }
+        } while (loop);
     }
 
     public Location getFrom() {
@@ -200,7 +211,6 @@ public class Route {
     /**
      * Sets the length of the route.
      * @param distance - the length (long)
-     * @TODO is it correct that in case of distance < 1 we re-input only the distance, not the locations?
      */
     public void setDistance(Double distance) {
         try {

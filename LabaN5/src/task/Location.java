@@ -3,6 +3,8 @@
  */
 package task;
 
+import management.AskInputManager;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -18,10 +20,6 @@ public class Location {
     /**
      * For 'group_counting_by_from' method.
      */
-    public boolean equals(Location l) {
-        return (x == l.getX() && y.equals(l.getY()) && z == l.getZ() && name.equals(l.name));
-    }
-
     @Override
     public String toString() {
         return name + " " + x + " " + y + " " + z;
@@ -58,15 +56,15 @@ public class Location {
     }
 
     /**
-     * Нужно handle InputMismatchException или NumberFormatException.
+     * Safe setting Y.
      */
     public void setY(Float y) {
         if (y != null) {
             this.y = y;
         } else {
             System.err.println("Class task\\Location: Y is null");
-            System.out.println("Input correct data:\nsetY (Float)");
-            setY(Float.parseFloat(new Scanner(System.in).next()));
+            AskInputManager aim = new AskInputManager(new Scanner(System.in));
+            setY(aim.inpFloat("Input correct data:\nsetY (Float)"));
         }
     }
 

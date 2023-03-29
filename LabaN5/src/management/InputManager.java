@@ -44,14 +44,14 @@ public class InputManager implements Input {
      * Inputs coordinates with no console output.
      */
     public Coordinates inpCoordinates(String name) {
-        return new Coordinates(inpDouble(""), inpFloat());
+        return new Coordinates(inpDouble(""), inpFloat(""));
     }
 
     /**
      * Inputs Location with no console output.
      */
     public Location inpLocation(String name) {
-        return new Location(inpFloat(), inpFloat(), inpLong(""), inpString(""));
+        return new Location(inpFloat(""), inpFloat(""), inpLong(""), inpString(""));
     }
 
     /**
@@ -76,7 +76,7 @@ public class InputManager implements Input {
      * Safely inputs a variable of Float type
      * with no console output.
      */
-    private Float inpFloat() {
+    public Float inpFloat(String name) {
         Float res = null;
         boolean loop = true;
         do {
@@ -113,6 +113,14 @@ public class InputManager implements Input {
      */
     public String inpString(String name) {
         return sc.nextLine();
+    }
+
+    /**
+     * @return description for the InputManager.
+     */
+    @Override
+    public String toString() {
+        return "'silent' Input manager, which does not print anything (suits for input from file)";
     }
 
 }

@@ -72,8 +72,6 @@ public class ExecuteScriptCommand extends AbstractCommand implements Command {
                 loop = false;
             }
         } while (loop);
-
     }
-
 }
 

@@ -21,7 +21,7 @@ public class Coordinates {
     }
 
     /**
-     * Скорее всего, проверки здесь избыточны, потому что проверка на null происходит в add.
+     * Sets X, without any exceptions written by me.
      */
     public void setX(Double x) {
         if (x != null) {
@@ -40,10 +40,6 @@ public class Coordinates {
                 }
             } while (loop);
         }
-    }
-
-    public void setY(float y) {
-        this.y = y;
     }
 
     public Double getX() {

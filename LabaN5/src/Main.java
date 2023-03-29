@@ -2,12 +2,6 @@
  * @author Troitskaya Tamara (cgsg-tt6)
  */
 
-/*
-28.03.2023
-Route - rewrite setters (shorter, no try-catch in catch)
-переменная окружения (ну или оставить args)
- */
-
 import management.Client;
 
 /**

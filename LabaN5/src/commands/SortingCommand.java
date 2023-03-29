@@ -6,6 +6,10 @@ package commands;
 import management.CollectionManager;
 import task.Route;
 
+/**
+ * Sorts the collection.
+ * (Is needed only after 'insert_at', so it doesn't have description and name)
+ */
 public class SortingCommand implements Command {
     private CollectionManager storage;
 
@@ -13,12 +17,20 @@ public class SortingCommand implements Command {
         this.storage = collectionManager;
     }
 
+    /**
+     * Swaps two elements while sorting.
+     * @param a index of the first element to be swapped with the second;
+     * @param b index of the second element.
+     */
     private void swap(int a, int b) {
         Route tmp = storage.stack().get(a);
         storage.stack().set(a, storage.stack().get(b));
         storage.stack().set(b, tmp);
     }
 
+    /**
+     * Sorts the Stack by id.
+     */
     @Override
     public void execute() {
         for (int j = 0; j < storage.stack().size() - 1; j++) {

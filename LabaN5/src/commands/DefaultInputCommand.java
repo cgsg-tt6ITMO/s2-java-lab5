@@ -6,12 +6,9 @@ package commands;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import management.CollectionManager;
-import management.Input;
-import management.InputManager;
 import task.Route;
 
 import java.io.*;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.Stack;
 

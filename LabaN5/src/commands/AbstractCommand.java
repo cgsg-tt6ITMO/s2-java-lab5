@@ -34,6 +34,9 @@ public class AbstractCommand {
         return description;
     }
 
+    /**
+     * @return information about the command for 'help'.
+     */
     @Override
     public String toString() {
         return name + " - " + description;

@@ -5,6 +5,9 @@ package commands;
 
 import static java.lang.System.exit;
 
+/**
+ * Handle 'exit' command.
+ */
 public class ExitCommand extends AbstractCommand implements Command {
     /**
      * Sets name and description of the command.
