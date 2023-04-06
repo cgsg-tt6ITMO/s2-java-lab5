@@ -3,14 +3,8 @@
  */
 package commands;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import management.CollectionManager;
-import task.Route;
-
-import java.io.*;
-import java.util.Scanner;
-import java.util.Stack;
+import management.JSONManager;
 
 /**
  * Initialize collection with elements from default file.
@@ -18,6 +12,7 @@ import java.util.Stack;
 public class DefaultInputCommand implements Command {
     private final String filename;
     private final CollectionManager storage;
+    private final JSONManager jsonManager;
 
     /**
      * Set FileName, silent input manager and storage to initialize.
@@ -25,6 +20,7 @@ public class DefaultInputCommand implements Command {
     public DefaultInputCommand(String filename, CollectionManager collectionManager) {
         this.filename = filename;
         this.storage = collectionManager;
+        jsonManager = new JSONManager();
     }
 
     /**
@@ -32,10 +28,13 @@ public class DefaultInputCommand implements Command {
      */
     @Override
     public void execute() {
+        jsonManager.read(filename);
+        /*
         Gson gson = new Gson();
         storage.stack().clear();
-        try (Scanner sc = new Scanner(new File(filename))) {
-            Stack<Route> srut = gson.fromJson(sc.nextLine().trim(), new TypeToken<Stack<Route>>() {}.getType());
+        try {
+            System.out.println(new TypeToken<Stack<Route>>() {}.getType());
+            Stack<Route> srut = gson.fromJson(new FileReader(filename), new TypeToken<Stack<Route>>() {}.getType());
             for (var r : srut) {
                 System.out.println("Route Id:      " + r.getId() + "\nName:          " + r.getName()
                         //+ "\nCreation date: " + r.getCreationDate()
@@ -45,10 +44,13 @@ public class DefaultInputCommand implements Command {
                         + "\nDistance:      " + r.getDistance() + "\n");
             }
             storage.stack().addAll(srut);
+            System.out.println(gson.toJson(srut));
             System.out.println("SUCCESS");
         } catch (IOException exception) {
             System.err.println("default_input: " + exception.getMessage());
         }
+         */
     }
+
 
 }

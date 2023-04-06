@@ -19,6 +19,7 @@ public class CommandManager {
      * Adds instances of all commands to list.
      */
     public CommandManager(CollectionManager collectionManager, Input inputManager) {
+        JSONManager jsonManager = new JSONManager();
         this.collectionManager = collectionManager;
         this.inpMan = inputManager;
 
@@ -36,7 +37,7 @@ public class CommandManager {
         RemoveLowerCommand removeLower = new RemoveLowerCommand(collectionManager, inputManager);
         InsertAtCommand insertAt = new InsertAtCommand(collectionManager, inputManager, this);
         UpdateCommand update = new UpdateCommand(collectionManager, inputManager);
-        SaveCommand save = new SaveCommand("out.json", collectionManager);
+        SaveCommand save = new SaveCommand("out.json", collectionManager, jsonManager);
         ExecuteScriptCommand executeScript = new ExecuteScriptCommand(collectionManager, inputManager);
 
         SortingCommand sort = new SortingCommand(collectionManager);
