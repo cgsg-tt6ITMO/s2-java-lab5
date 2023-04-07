@@ -4,7 +4,9 @@
 package management;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import task.Route;
 
 import java.io.BufferedWriter;
@@ -17,7 +19,9 @@ import java.util.*;
  * Handles work with json files.
  */
 public class JSONManager {
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     public JSONManager() {}
 

@@ -6,7 +6,6 @@ package management;
 import task.Route;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -15,7 +14,7 @@ import java.util.*;
 public class CollectionManager {
     private static Stack<Route> stack = new Stack<>();
     private final String type;
-    private String creationDate;
+    private final ZonedDateTime creationDate;
     private static Long lastId = 0L;
     // for 'execute_script' -- array of all used scripts.
     private ArrayList<String> files = new ArrayList<>();
@@ -62,7 +61,7 @@ public class CollectionManager {
     }
 
     // for 'info'
-    public String getCreationDate() {
+    public ZonedDateTime getCreationDate() {
         return creationDate;
     }
 
@@ -86,8 +85,7 @@ public class CollectionManager {
      */
     public CollectionManager(String file) {
         type = "Stack";
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        creationDate = dateTimeFormatter.format(ZonedDateTime.now());
+        creationDate = ZonedDateTime.now();
         stack = new JSONManager().read(file);
     }
 }

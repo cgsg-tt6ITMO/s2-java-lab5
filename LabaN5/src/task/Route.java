@@ -8,7 +8,6 @@ import management.AskInputManager;
 import management.CollectionManager;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.Math.sqrt;
@@ -20,7 +19,7 @@ public class Route {
     private Long id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private String creationTime; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private ZonedDateTime creationTime; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Location from; //Поле не может быть null
     private Location to; //Поле может быть null
     private Double distance; //Значение поля должно быть больше 1
@@ -53,8 +52,7 @@ public class Route {
      */
     public Route() {
         setId();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        setCreationDate(dateTimeFormatter.format(ZonedDateTime.now()));
+        setCreationTime(ZonedDateTime.now());
         setName("route#" + id);
         setCoordinates(new Coordinates(5.17, 3.41f));
         setFrom(new Location());
@@ -149,12 +147,12 @@ public class Route {
         return coordinates;
     }
 
-    public void setCreationDate(String creationTime) {
-        this.creationTime = creationTime;
+    public ZonedDateTime getCreationTime() {
+        return creationTime;
     }
 
-    public String getCreationDate() {
-        return creationTime;
+    public void setCreationTime(ZonedDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     /**

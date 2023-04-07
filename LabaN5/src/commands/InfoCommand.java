@@ -5,13 +5,11 @@ package commands;
 
 import management.CollectionManager;
 
-import java.time.ZonedDateTime;
-
 /**
  * Handle 'info' method.
  */
 public class InfoCommand extends AbstractCommand implements Command{
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     /**
      * Set name and description for 'info' command.
@@ -28,7 +26,7 @@ public class InfoCommand extends AbstractCommand implements Command{
     public void execute() {
         var date = collectionManager.getCreationDate();
         System.out.println("COLLECTION INFO:\n"
-                + "creation date: " + date//+ date.getHour() + ":" + (date.getMinute() > 9 ? date.getMinute() : "0" + date.getMinute())
+                + "creation time: " + date.getHour() + ":" + (date.getMinute() > 9 ? date.getMinute() : "0" + date.getMinute())
                 + "\ntype of storage: " + collectionManager.getType() + "\nnumber of elements: " + collectionManager.stack().size() + "\n");
     }
 }
