@@ -11,18 +11,12 @@ import java.util.HashMap;
  * Storage for all commands.
  */
 public class CommandManager {
-    private static HashMap<String, Command> commands = new HashMap<>();
-    private CollectionManager collectionManager;
-    private Input inpMan;
+    private static final HashMap<String, Command> commands = new HashMap<>();
 
     /**
      * Adds instances of all commands to list.
      */
     public CommandManager(CollectionManager collectionManager, Input inputManager) {
-        JSONManager jsonManager = new JSONManager();
-        this.collectionManager = collectionManager;
-        this.inpMan = inputManager;
-
         HelpCommand help = new HelpCommand(this);
         InfoCommand info = new InfoCommand(collectionManager);
         ShowCommand show = new ShowCommand(collectionManager);
@@ -37,9 +31,8 @@ public class CommandManager {
         RemoveLowerCommand removeLower = new RemoveLowerCommand(collectionManager, inputManager);
         InsertAtCommand insertAt = new InsertAtCommand(collectionManager, inputManager, this);
         UpdateCommand update = new UpdateCommand(collectionManager, inputManager);
-        SaveCommand save = new SaveCommand("out.json", collectionManager, jsonManager);
+        SaveCommand save = new SaveCommand("out.json", collectionManager);
         ExecuteScriptCommand executeScript = new ExecuteScriptCommand(collectionManager, inputManager);
-
         SortingCommand sort = new SortingCommand(collectionManager);
 
         commands.put(help.getName(), help);
@@ -58,7 +51,6 @@ public class CommandManager {
         commands.put(update.getName(), update);
         commands.put(save.getName(), save);
         commands.put(executeScript.getName(), executeScript);
-
         commands.put("sort", sort);
     }
 

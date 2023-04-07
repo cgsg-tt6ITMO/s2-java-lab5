@@ -3,7 +3,6 @@
  */
 package management;
 
-import commands.DefaultInputCommand;
 import task.Route;
 
 import java.time.ZonedDateTime;
@@ -89,10 +88,6 @@ public class CollectionManager {
         type = "Stack";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
         creationDate = dateTimeFormatter.format(ZonedDateTime.now());
-        // initialization:
-        //DefaultInputCommand defaultInp = new DefaultInputCommand(file, this);
-        //defaultInp.execute();
         stack = new JSONManager().read(file);
     }
-
 }

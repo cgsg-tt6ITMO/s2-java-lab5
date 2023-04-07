@@ -12,16 +12,15 @@ import management.JSONManager;
 public class SaveCommand extends AbstractCommand implements Command {
     private final String path;
     private final CollectionManager collectionManager;
-    private final JSONManager jsonManager;
+    private final JSONManager jsonManager = new JSONManager();
 
     /**
      * Set name and description for 'save' command.
      */
-    public SaveCommand(String path, CollectionManager collectionManager, JSONManager js) {
+    public SaveCommand(String path, CollectionManager collectionManager) {
         super("save", "saves collection to json file.;");
         this.path = path;
         this.collectionManager = collectionManager;
-        this.jsonManager = js;
     }
 
     /**

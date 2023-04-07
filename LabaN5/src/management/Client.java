@@ -21,6 +21,9 @@ public class Client {
         AskInputManager askInputManager = new AskInputManager(scanner);
         CommandManager commandManager = new CommandManager(storage, askInputManager);
 
+        commandManager.getCommands().get("show").execute();
+        commandManager.getCommands().get("help").execute();
+
         while (scanner.hasNext()) {
             String command = scanner.nextLine();
             if (commandManager.getCommands().containsKey(command)) {

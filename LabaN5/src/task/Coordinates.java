@@ -10,6 +10,11 @@ public class Coordinates {
     private Double x; //Поле не может быть null
     private float y;
 
+    //for jackson
+    public Coordinates() {
+
+    }
+
     /**
      * Coordinates constructor.
      * @param X abscissa (!= null);
@@ -40,6 +45,10 @@ public class Coordinates {
                 }
             } while (loop);
         }
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 
     public Double getX() {
