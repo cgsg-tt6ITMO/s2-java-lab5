@@ -13,12 +13,13 @@ import java.util.InputMismatchException;
  * Handle 'insert_at' method.
  */
 public class InsertAtCommand extends AbstractCommand implements Command {
-    private Input im;
-    private CollectionManager storage;
-    private CommandManager cm;
+    private final Input im;
+    private final CollectionManager storage;
+    private final CommandManager cm;
 
     /**
      * Set name and description for 'insert_at' command.
+     * @param collectionManager storage of the collection.
      */
     public InsertAtCommand(CollectionManager collectionManager, Input inputManager,
                            CommandManager commandManager) {

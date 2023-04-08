@@ -16,6 +16,8 @@ public class SaveCommand extends AbstractCommand implements Command {
 
     /**
      * Set name and description for 'save' command.
+     * @param path file where to save.
+     * @param collectionManager storage of the collection.
      */
     public SaveCommand(String path, CollectionManager collectionManager) {
         super("save", "saves collection to json file.;");

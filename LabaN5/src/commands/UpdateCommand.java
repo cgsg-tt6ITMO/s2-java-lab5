@@ -14,11 +14,12 @@ import static java.lang.Math.sqrt;
  * Handle 'update' method.
  */
 public class UpdateCommand extends AbstractCommand implements Command {
-    private CollectionManager storage;
-    private Input aim;
+    private final CollectionManager storage;
+    private final Input aim;
 
     /**
      * Set name and description for 'update' command.
+     * @param collectionManager storage of the collection.
      */
     public UpdateCommand(CollectionManager collectionManager, Input inputManager) {
         super("update", "updates element with id inputted;");
@@ -33,7 +34,7 @@ public class UpdateCommand extends AbstractCommand implements Command {
         for (var r : storage.stack()) {
             if (r.getId().equals(id)) {
                 System.out.println("Route Id:      " + r.getId() + "\nName:          " + r.getName()
-                        //+ "\nCreation date: " + r.getCreationDate()
+                        + "\nCreation date: " + r.getCreationTime()
                         + "\nCoordinates:   " + r.getCoordinates().getX() + " " + r.getCoordinates().getY()
                         + "\nLocation From: " + r.getFrom().getName() + " " + r.getFrom().getX() + " " + r.getFrom().getY() + " " + r.getFrom().getZ()
                         + "\nLocation To:   " + r.getTo().getName() + " " + r.getTo().getX() + " " + r.getTo().getY() + " " + r.getTo().getZ()

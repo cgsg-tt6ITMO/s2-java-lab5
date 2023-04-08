@@ -13,10 +13,11 @@ public class InfoCommand extends AbstractCommand implements Command{
 
     /**
      * Set name and description for 'info' command.
+     * @param collectionManager storage of the collection.
      */
-    public InfoCommand(CollectionManager storage) {
+    public InfoCommand(CollectionManager collectionManager) {
         super("info", "prints info about the collection;");
-        this.collectionManager = storage;
+        this.collectionManager = collectionManager;
     }
 
     /**

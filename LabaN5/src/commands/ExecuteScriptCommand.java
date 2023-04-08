@@ -13,11 +13,12 @@ import java.util.Scanner;
  * Handle 'execute_script' method.
  */
 public class ExecuteScriptCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
     private final Input inputManager;
 
     /**
      * Set name and description for 'execute_script' command.
+     * @param collectionManager storage of the collection.
      */
     public ExecuteScriptCommand(CollectionManager collectionManager, Input inputManager) {
         super("execute_script", "inputs elements from file;");

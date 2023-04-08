@@ -11,11 +11,12 @@ import task.Route;
  * Handle 'remove_lower' method.
  */
 public class RemoveLowerCommand extends AbstractCommand implements Command {
-    private CollectionManager cm;
-    private Input im;
+    private final CollectionManager cm;
+    private final Input im;
 
     /**
      * Set name and description for 'remove_lower' command.
+     * @param collectionManager storage of the collection.
      */
     public RemoveLowerCommand(CollectionManager collectionManager, Input inputManager) {
         super("remove_lower", "removes all elements lower than inputted;");

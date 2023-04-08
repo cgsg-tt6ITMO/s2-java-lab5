@@ -23,12 +23,15 @@ public class JSONManager {
             .registerModule(new JavaTimeModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
+    /**
+     * Default json manager constructor.
+     */
     public JSONManager() {}
 
     /**
-     * Save collection to file
-     * @param storage stack of elements to save
-     * @param path file where to save
+     * Save collection to file.
+     * @param storage stack of elements to save.
+     * @param path file where to save.
      */
     public void write(Stack<Route> storage, String path) {
         try {
@@ -45,6 +48,8 @@ public class JSONManager {
 
     /**
      * Read values from JSON file.
+     * @param path path to json file where the elements are stored.
+     * @return collection of elements we read from the file.
      */
     public Stack<Route> read(String path) {
         Stack<Route> st = new Stack<>();

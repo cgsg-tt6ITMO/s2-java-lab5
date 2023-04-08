@@ -10,11 +10,12 @@ import management.Input;
  * Handle 'filter_greater_than_distance' method.
  */
 public class FilterGreaterDistCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
-    private Input inputManager;
+    private final CollectionManager collectionManager;
+    private final Input inputManager;
 
     /**
      * Set name and description for 'filter_greater_than_distance' command.
+     * @param collectionManager storage of the collection.
      */
     public FilterGreaterDistCommand(CollectionManager collectionManager, Input inputManager) {
         super("filter_greater_than_distance", "prints elements with distance greater than the inputted one;");

@@ -12,14 +12,15 @@ import java.util.Comparator;
  * Handle 'print_field_descending_distance' method.
  */
 public class PrintDescDistCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     /**
      * Set name and description for 'print_field_descending_distance' command.
+     * @param collectionManager storage of the collection.
      */
-    public PrintDescDistCommand(CollectionManager storage) {
+    public PrintDescDistCommand(CollectionManager collectionManager) {
         super("print_field_descending_distance", "prints distances in descending order;");
-        this.collectionManager = storage;
+        this.collectionManager = collectionManager;
     }
 
     /**

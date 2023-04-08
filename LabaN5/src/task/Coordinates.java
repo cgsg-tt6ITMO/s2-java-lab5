@@ -6,14 +6,17 @@ package task;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Coordinates class due to the task.
+ */
 public class Coordinates {
     private Double x; //Поле не может быть null
     private float y;
 
-    //for jackson
-    public Coordinates() {
-
-    }
+    /**
+     * Default constructor for jackson.
+     */
+    public Coordinates() {}
 
     /**
      * Coordinates constructor.
@@ -47,14 +50,24 @@ public class Coordinates {
         }
     }
 
+    /**
+     * @param y - ordinate to set.
+     */
     public void setY(float y) {
         this.y = y;
     }
 
+    /**
+     * @return abscissa.
+     */
     public Double getX() {
         return x;
     }
 
+    /**
+     * Needed for jackson.
+     * @return ordinate of the point.
+     */
     public float getY() {
         return y;
     }

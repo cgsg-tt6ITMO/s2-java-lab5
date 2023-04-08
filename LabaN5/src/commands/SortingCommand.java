@@ -11,8 +11,11 @@ import task.Route;
  * (Is needed only after 'insert_at', so it doesn't have description and name)
  */
 public class SortingCommand implements Command {
-    private CollectionManager storage;
+    private final CollectionManager storage;
 
+    /**
+     * @param collectionManager storage of the collection.
+     */
     public SortingCommand(CollectionManager collectionManager) {
         this.storage = collectionManager;
     }

@@ -39,9 +39,9 @@ public class Route {
     /**
      * Compares this route with the one in argument.
      * @param r - Route to be compared with
-     * @return  1 - this > r
-     *         -1 - this < r
-     *          0 - this = r
+     * @return <ul><li>1 - this > r</li>
+     *             <li>1 - this &lt; r</li>
+     *             <li>0 - this = r</li></ul>
      */
     public int compare(Route r) {
         return Double.compare(distance, r.getDistance());
@@ -147,10 +147,16 @@ public class Route {
         return coordinates;
     }
 
+    /**
+     * @return time when the collection was created.
+     */
     public ZonedDateTime getCreationTime() {
         return creationTime;
     }
 
+    /**
+     * @param creationTime time when the collection was created.
+     */
     public void setCreationTime(ZonedDateTime creationTime) {
         this.creationTime = creationTime;
     }

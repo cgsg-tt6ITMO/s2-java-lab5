@@ -7,5 +7,8 @@ package commands;
  * Interface of all commands.
  */
 public interface Command {
+    /**
+     * Run the command.
+     */
     void execute();
 }

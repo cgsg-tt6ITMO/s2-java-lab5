@@ -11,15 +11,16 @@ import task.Route;
  * Handle 'add_if_max' method.
  */
 public class AddIfMaxCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
-    private Input inputManager;
+    private final CollectionManager collectionManager;
+    private final Input inputManager;
 
     /**
      * Set name and description for 'add_if_max' command.
+     * @param collectionManager storage of the collection.
      */
-    public AddIfMaxCommand(CollectionManager storage, Input input) {
+    public AddIfMaxCommand(CollectionManager collectionManager, Input input) {
         super("add_if_max", "adds the element if it is larger than every element in collection;");
-        this.collectionManager = storage;
+        this.collectionManager = collectionManager;
         this.inputManager = input;
     }
 

@@ -61,6 +61,10 @@ public class CollectionManager {
     }
 
     // for 'info'
+
+    /**
+     * @return creationTime of the collection.
+     */
     public ZonedDateTime getCreationDate() {
         return creationDate;
     }

@@ -12,11 +12,12 @@ import java.util.Objects;
  * Handle 'remove_by_id' method.
  */
 public class RemoveByIdCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
-    private Input inputManager;
+    private final CollectionManager collectionManager;
+    private final Input inputManager;
 
     /**
      * Set name and description for 'remove_by_id' command.
+     * @param collectionManager storage of the collection.
      */
     public RemoveByIdCommand(CollectionManager collectionManager, Input inputManager) {
         super("remove_by_id", "deletes the element with inputted id;");

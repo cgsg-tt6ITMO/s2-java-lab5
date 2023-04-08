@@ -9,14 +9,15 @@ import management.CollectionManager;
  * Handle 'clear' method.
  */
 public class ClearCommand extends AbstractCommand implements Command{
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     /**
      * Set name and description for 'clear' command.
+     * @param collectionManager storage of the collection.
      */
-    public ClearCommand(CollectionManager storage) {
+    public ClearCommand(CollectionManager collectionManager) {
         super("clear", "deletes all the elements of the collection;");
-        this.collectionManager = storage;
+        this.collectionManager = collectionManager;
     }
 
     /**

@@ -11,14 +11,15 @@ import java.util.HashMap;
  * Handle 'group_counting_by_from' method.
  */
 public class GroupByFromCommand extends AbstractCommand implements Command {
-    private CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     /**
      * Set name and description for 'group_counting_by_from' command.
+     * @param collectionManager storage of the collection.
      */
-    public GroupByFromCommand(CollectionManager storage) {
+    public GroupByFromCommand(CollectionManager collectionManager) {
         super("group_counting_by_from", "outputs numbers of elements with the same from;");
-        this.collectionManager = storage;
+        this.collectionManager = collectionManager;
     }
 
     /**

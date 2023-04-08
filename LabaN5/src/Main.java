@@ -16,6 +16,7 @@ public class Main {
      */
     public static void main(String [] args) {
         Client client = new Client();
-        client.run("out.json");
+        String envVar = "JAVA_LABA_5";
+        client.run(System.getenv().get(envVar));
     }
 }
