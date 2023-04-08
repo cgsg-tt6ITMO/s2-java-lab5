@@ -1,9 +1,8 @@
 # s2-java-lab5
 ### TODO (29.03.2023)
-- time
 - переменная окружения это чё
 - jar
-- javac doc
+- javadoc
 - uml
 - theory
 - отчёт
