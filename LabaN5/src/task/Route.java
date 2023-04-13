@@ -15,7 +15,7 @@ import static java.lang.Math.sqrt;
 /**
  * Elements of the collection.
  */
-public class Route {
+public class Route implements Comparable<Route>{
     private Long id; // Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -24,7 +24,7 @@ public class Route {
     private Location to; //Поле может быть null
     private Double distance; //Значение поля должно быть больше 1
 
-    private AskInputManager aim = new AskInputManager(new Scanner(System.in));
+    private final AskInputManager aim = new AskInputManager(new Scanner(System.in));
 
     @Override
     public String toString() {
@@ -43,7 +43,8 @@ public class Route {
      *             <li>1 - this &lt; r</li>
      *             <li>0 - this = r</li></ul>
      */
-    public int compare(Route r) {
+    @Override
+    public int compareTo(Route r) {
         return Double.compare(distance, r.getDistance());
     }
 

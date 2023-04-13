@@ -33,7 +33,7 @@ public class RemoveLowerCommand extends AbstractCommand implements Command {
         System.out.println("REMOVE LOWER:");
         Route route = im.inpRoute();
         for (var el : cm.stack()) {
-            if (route.compare(el) > 0) {
+            if (route.compareTo(el) > 0) {
                 cm.stack().remove(el);
             }
         }

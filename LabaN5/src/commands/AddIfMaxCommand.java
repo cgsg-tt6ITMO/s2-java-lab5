@@ -34,7 +34,7 @@ public class AddIfMaxCommand extends AbstractCommand implements Command {
 
         boolean flag = true;
         for (var el : collectionManager.stack()) {
-            if (route.compare(el) != 1) {
+            if (route.compareTo(el) != 1) {
                 flag = false;
                 break;
             }
