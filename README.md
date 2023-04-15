@@ -1,7 +1,9 @@
 # JAVA, 2nd semester, Laba № 5
-### TODO (08.04.2023)
+
+13.04.2023 I got 80 points for this work.
+
+### TODO (15.04.2023)
 - uml
-- theory
 - отчёт
 
 ### HOW TO SET ENVIRONMENTAL VARIABLE
