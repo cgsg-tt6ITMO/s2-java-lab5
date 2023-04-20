@@ -1,7 +1,9 @@
-# JAVA, 2nd semester, Laba № 5
-### TODO (08.04.2023)
+# JAVA, 2nd semester, Laba № 5 [![CodeFactor](https://www.codefactor.io/repository/github/cgsg-tt6itmo/s2-java-lab5/badge)](https://www.codefactor.io/repository/github/cgsg-tt6itmo/s2-java-lab5)
+
+13.04.2023 I got 80 points for this work.
+
+### TODO (15.04.2023)
 - uml
-- theory
 - отчёт
 
 ### HOW TO SET ENVIRONMENTAL VARIABLE
