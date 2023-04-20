@@ -2,10 +2,6 @@
 
 13.04.2023 I got 80 points for this work.
 
-### TODO (15.04.2023)
-- uml
-- отчёт
-
 ### HOW TO SET ENVIRONMENTAL VARIABLE
 <details><summary>tap to figure it out...</summary>
 Система -> О системе -> Дополнительные параметры системы -> Переменные среды -> создайте или измените JAVA_LABA_5 значение - абсолютный путь к файлу без кавычек, например:
